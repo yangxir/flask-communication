@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}”人工智能+x“交叉学科交流平台-论坛{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/css/index.css">
+{% endblock %}
+
+{% block body %}
+    <div class="row" style="margin-top: 20px;">
+            <div class="col"></div>
+            <div class="col-10">
+                <ul class="question-ul">
+                    {% for question in questions %}
+    <li>
+        <div class="side-question">
+            <img class="side-question-avatar" src="/static/images/avatar.jpg" alt="">
+        </div>
+        <div class="question-main">
+            <div class="question-title"><a href="{{ url_for('AI+X.qa_detail', qa_id=question.id) }}">{{ question.title }}</a></div>
+            <p class="question-content" style="white-space: pre-line;">
+                {% if question.content|length > 300 %}
+                    {{ question.content[:300] }}... <a href="{{ url_for('AI+X.qa_detail', qa_id=question.id) }}">更多</a>
+                {% else %}
+                    {{ question.content }}
+                {% endif %}
+            </p>
+
+            <div class="question-detail">
+                <span class="question-author">{{ question.author.username }}</span>
+                <span class="question-time">{{ question.create_time }}</span>
+            </div>
+        </div>
+    </li>
+{% endfor %}
+
+                </ul>
+            </div>
+            <div class="col"></div>
+        </div>
+{% endblock %}

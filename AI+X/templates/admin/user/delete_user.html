@@ -1,0 +1,14 @@
+{% extends "admin/admin_index.html" %}
+{% block title %}Delete Competition{% endblock %}
+
+{% block body %}
+  <h1>删除用户  ({{ user.username }})</h1>
+  <hr>
+  <p>你确定要删除吗？ 不可恢复.</p>
+  <form method="post">
+    <div class="form-group">
+      <input type="submit" class="btn btn-danger" value="删除">
+      <button type="button" class="btn btn-secondary"  href="{{ url_for('admin_user.index') }}">取消</button>
+    </div>
+  </form>
+{% endblock %}

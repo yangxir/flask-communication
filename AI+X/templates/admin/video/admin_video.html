@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}管理视频{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>管理视频</h1>
+        <hr>
+        <p><a href="{{ url_for('admin_videos.upload_video') }}" class="btn btn-primary">上传视频</a></p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>视频名称</th>
+                    <th>播放次数</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for video in videos %}
+                <tr>
+                    <td>{{ video.id }}</td>
+                    <td>{{ video.title }}</td>
+                    <td>{{ video.count }}</td>
+                    <td>
+                        <a href="{{ url_for('admin_videos.delete_video', video_id=video.id,title= video.title) }}" class="btn btn-danger btn-sm">删除</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

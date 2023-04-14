@@ -1,0 +1,21 @@
+{% extends "admin/admin_index.html" %}
+
+{% block title %}”人工智能+x“交叉学科交流平台-修改用户{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<div class="row mt-4">
+    <div class="col col-md-8 offset-md-2">
+        <h3 class="text-center mt-2 mb-4">修改 {{ user.username }} 信息</h3>
+        <form method="POST" action="{{ url_for('admin_user.edit_user', user_id=user.id)}}">
+            {{ form.csrf_token }}
+            {{ form.username.label }} {{ form.username }}
+            {{ form.email.label }} {{ form.email }}
+            {{ form.submit(class="btn btn-primary") }}
+            <a href="{{ url_for('admin_user.index') }}" class="btn btn-outline-secondary">返回</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

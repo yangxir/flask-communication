@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/bootstrap.4.6.min.css') }}">
+    <script src="{{ url_for('static', filename='jquery/jquery.3.6.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/init.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    {% block head %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+<style>
+
+
+footer p {
+  margin: 0;
+}
+
+footer a {
+  color: #6c757d;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #343a40;
+}
+
+
+</style>
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light navbar-expand">
+  <div class="container">
+    <a class="navbar-brand" href="{{url_for('auth.start')}}">"人工智能+x"交叉学科交流平台</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">论坛<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('learn.index')}}">学习视频</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('questionnaire.index')}}">调查问卷</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('competition.index')}}">竞赛情况</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('AI+X.public_question')}}">发布问答</a>
+        </li>
+        <li class="nav-item ml-2">
+          <form class="form-inline my-2 my-lg-0" method="GET" action="{{url_for('AI+X.search')}}">
+            <input class="form-control mr-sm-2" type="search" placeholder="关键字" aria-label="Search" name="q">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+          </form>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav">
+        {% if user %}
+        <li class="nav-item">
+          <a class="nav-link" href="#">{{user.username}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('auth.logout')}}">退出</a>
+        </li>
+        {% elif admin %}
+        <li class="nav-item">
+          <span class="nav-link">admin</span>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">管理</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ url_for('admin.index') }}"  >管理主页</a>
+    <a class="dropdown-item" href="{{ url_for('admin_user.index') }}">用户管理</a>
+    <a class="dropdown-item" href="{{ url_for('admin_question.index') }}">问答管理</a>
+    <a class="dropdown-item" href="{{ url_for('admin_answer.index') }}">评论管理</a>
+    <a class="dropdown-item" href="{{ url_for('admin_competition.index') }}">竞赛管理</a>
+    <a class="dropdown-item" href="{{ url_for('admin_videos.index') }}">视频管理</a>
+    <a class="dropdown-item" href="{{ url_for('admin_comments.index') }}">视频评论管理</a>
+    <a class="dropdown-item" href="{{ url_for('admin_questionnaire.index') }}">问卷问题管理</a>
+  </div>
+</li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('admin.logout') }}">退出</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('auth.login') }}">登录</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('auth.register') }}">注册</a>
+        </li>
+        <li class="navbar-inverse">
+  <a class="nav-link" href="{{ url_for('admin.login') }}" >管理登录</a>
+
+</li>
+
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block body %}
+        {% endblock %}
+    </div>
+</body>
+<footer class="mt-3 bg-dark text-light">
+  <div class="container py-5" style="font-size: 0.8em; height: 20px;">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p>© 2023 All Rights Reserved. Designed and developed by 杨熙瑞.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</html>

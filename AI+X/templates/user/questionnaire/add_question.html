@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="row">
+  <div class="col-md-6">
+    <form method="POST" action="">
+
+      {{ form.content.label }}
+      {{ form.content(class_="form-control") }}
+      {{ form.type.label }}
+      {{ form.type(class_="form-control") }}
+      {% if form.type.data == '1' %}
+      <div class="form-group" id="options-container">
+        <label for="options">选项：</label>
+        {% for option in form.options %}
+        <div class="option-item">
+          {{ option.content.label }}
+          {{ option.content(class_="form-control") }}
+        </div>
+        {% endfor %}
+
+      </div>
+      {% endif %}
+      <button type="submit" class="btn btn-primary">提交</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

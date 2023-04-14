@@ -1,0 +1,54 @@
+{% extends "admin/admin_index.html" %}
+
+{% block title %}”人工智能+x“交叉学科交流平台-管理用户主页{% endblock %}
+
+{% block head %}
+            <link rel="stylesheet" href="{{ url_for('static',filename = 'bootstrap/bootstrap.4.6.min.css') }}"/>
+{% endblock %}
+{% block body %}
+<div class="row mt-4">
+    <div class="col">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item ml-2">
+                        <form class="form-inline my-2 my-lg-0" method="GET" action="##">
+                            <input class="form-control mr-sm-2" type="search" placeholder="输入用户的名字或邮箱" aria-label="Search" name="q">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+                        </form>
+                    </li>
+        </ul>
+    </div>
+
+<br>
+
+    <div class="container" >
+
+    <hr>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">新用户数据</div>
+        {% if message %}
+        <tr>添加失败，请检查邮箱是否正确，（或是该邮箱已经注册了）</tr>
+        {% endif %}
+        <div class="col">
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">邮箱</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+                    </div>
+                     <div class="form-group">
+                        <label for="exampleInputEmail1">用户名</label>
+                        <input type="text" class="form-control" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">密码</label>
+                        <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">立即添加</button>
+                    </div>
+                </form>
+            </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

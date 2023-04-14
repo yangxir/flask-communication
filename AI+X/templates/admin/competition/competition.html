@@ -1,0 +1,52 @@
+{% extends "admin/admin_index.html" %}
+
+{% block title %}竞赛管理{% endblock %}
+
+{% block body %}
+  <h1>竞赛管理</h1>
+  <hr>
+  <a href="{{ url_for('admin_competition.add_competition') }}" class="btn btn-primary float-right mb-3">添加竞赛</a>
+
+  <div class="row">
+    <div class="col-md-10">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+            <th>比赛名称</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>比赛类型</th>
+            <th>比赛等级</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for competition in competitions %}
+          <tr>
+            <th scope="row">{{ competition.id }}</th>
+            <td>{{ competition.comp_name }}</td>
+            <td>{{ competition.start_time.strftime('%Y-%m-%d %H:%M:%S')  }}</td>
+            <td>{{ competition.end_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+            <td>{{ competition.comp_type }}</td>
+            <td>{{ competition.comp_level }}</td>
+            <td>
+              <div class="btn-group" role="group">
+                <a href="{{ url_for('admin_competition.edit_competition', competition_id=competition.id) }}" class="btn btn-primary btn-sm">修改</a>
+                <a href="{{ url_for('admin_competition.delete_competition', competition_id=competition.id) }}" class="btn btn-danger btn-sm">删除</a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    flatpickr('.flatpickr', {
+      enableTime: true,
+      dateFormat: 'Y-m-d H:i:S'
+    });
+  </script>
+{% endblock %}

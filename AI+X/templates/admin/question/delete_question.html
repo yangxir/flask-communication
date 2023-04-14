@@ -1,0 +1,25 @@
+{% extends 'admin/admin_index.html' %}
+
+{% block body %}
+    <div class="mt-4">
+        <h4 class="mb-3">确认删除</h4>
+        <p>您确定要删除以下问题吗？</p>
+        <form method="POST">
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">标题</label>
+                <div class="col-sm-9">
+                    <p class="form-control-plaintext">{{ question.title }}</p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">内容</label>
+                <div class="col-sm-9">
+                    <p class="form-control-plaintext">{{ question.content }}</p>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-danger">删除</button>
+            <a href="{{ url_for('admin_question.index') }}" class="btn btn-secondary">取消</a>
+        </form>
+    </div>
+{% endblock %}

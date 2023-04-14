@@ -1,0 +1,29 @@
+{% extends 'admin/admin_index.html' %}
+{% import'bootstrap/wtf.html' as wtf %}
+
+
+
+{% block title %}编辑 问题{% endblock %}
+
+{% block body %}
+  <h1>编辑 问题 ({{ question.content }})</h1>
+  <hr>
+  <form method="post">
+
+    <div class="form-group">
+      <label for="content">内容</label>
+      {{ form.content(class_="form-control", value=question.content) }}
+    </div>
+    <div class="form-group">
+      <label for="type">类型</label>
+      {{ form.type(class_="form-control", value=question.type) }}
+    </div>
+    <div class="form-group">
+        {% if question.type == 1 %}
+  <a href="{{ url_for('admin_questionnaire.add_option', question_id=question.id) }}" class="btn btn-info">添加选项</a>
+{% endif %}
+      <input type="submit" class="btn btn-primary" value="修改">
+      <a href="{{ url_for('admin_questionnaire.edit_questionnaire',questionnaire_id=question.questionnaire.id) }}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+{% endblock %}

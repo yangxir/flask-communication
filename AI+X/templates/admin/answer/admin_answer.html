@@ -1,0 +1,42 @@
+{% extends "admin/admin_index.html" %}
+
+{% block title %}"人工智能+x"交叉学科交流平台-管理评论主页{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <br>
+        <h1>评论管理</h1>
+<a href="{{ url_for('admin_answer.add_answer') }}" class="btn btn-success" style="float:right;">添加评论</a>
+
+        {% if not answers.total %}
+            <p>无评论</p>
+        {% else %}
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>评论者id</th>
+                    <th>问题id</th>
+                    <th>评论内容</th>
+                    <th>发布时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for answer in answers.items %}
+                    <tr>
+                        <td>{{ answer.author_id }}</td>
+                        <td>{{ answer.question_id }}</td>
+                        <td>{{ answer.content }}</td>
+                        <td>{{ answer.create_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        <td>
+                            <a href="{{ url_for('admin_answer.delete_answer', answer_id=answer.id) }}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('是否要删除此评论？')">删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}删除视频{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>删除视频</h1>
+        <hr>
+        <p>确定要删除视频 "{{ video.title }}" 吗？</p>
+        <form action="{{ url_for('admin_videos.delete_video', title=video.title,video_id=video.id) }}" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="btn btn-danger">删除</button>
+            <a href="{{ url_for('admin_videos.index') }}" class="btn btn-secondary">取消</a>
+        </form>
+    </div>
+{% endblock %}

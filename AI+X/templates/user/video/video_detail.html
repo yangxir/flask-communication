@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}视频详细{% endblock %}
+ <head>
+<script src="{{ url_for('static', filename='js/count_video.js')}}"></script>
+<style>
+    .card-text {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+</style>
+ </head>
+{% block body %}
+    <div class="container">
+        <div class="row mt-5">
+    <div class="col-md-12">
+        <h2>{{ video.title }}</h2>
+        <p class="text-muted mt-3">播放次数：<span id="watch-count">{{ video.count }}</span></p>
+
+        <p class="text-muted">发布时间：{{ video.create_time.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+        <hr>
+        <video src="{{ url_for('static', filename='movie/' + video.file) }}" controls style="width: 100%; max-width: 1080px;height:auto; min-height:720px;"></video>
+    </div>
+</div>
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <form method="post" action="{{ url_for('learn.comments', video_id=video.id) }}">
+
+                    <div class="form-group">
+                        <label for="content">评论内容：</label>
+                        <textarea class="form-control" id="content" name="content" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">提交评论</button>
+                </form>
+            </div>
+        </div>
+       {% if comments %}
+    <!-- 如果有评论，则显示评论列表 -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h3>评论列表</h3>
+            {% for comment in comments %}
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                                               <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ comment.user.username }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ comment.create_time.strftime('%Y-%m-%d %H:%M:%S') }}</h6>
+                            <p class="card-text">{{ comment.content }}</p>
+                        </div>
+                    </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% else %}
+    <!-- 如果没有评论，则显示提示消息 -->
+    <div class="row mt-5">
+        <div class="col-md-12 mt-5 p-4 bg-light text-center">
+  <p class="h5 mb-3">快来参与视频评论交流吧！</p>
+  <a href="{{ url_for('auth.login') }}" class="btn btn-primary">登录</a>
+  <a href="{{ url_for('auth.register') }}" class="btn btn-secondary">注册</a>
+</div>
+
+    </div>
+{% endif %}
+
+
+
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+       // 获取视频元素
+const videoPlayer = document.getElementById('video-player');
+
+// 监听播放事件
+videoPlayer.addEventListener('play', () => {
+  // 发送AJAX请求到后端视图函数中，以增加观看数
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', `{{ url_for('learn.increase_watch_count', video_id=video.id) }}`);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send();
+});
+// 获取当前观看数的<span>元素
+const watchCountSpan = document.getElementById('watch-count');
+
+// 监听AJAX请求返回的结果
+xhr.addEventListener('load', () => {
+  // 解析JSON并更新观看数
+  const data = JSON.parse(xhr.responseText);
+  watchCountSpan.innerText = data.watch_count;
+});
+
+    </script>
+{% endblock %}

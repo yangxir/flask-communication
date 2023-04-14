@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}查看问卷{% endblock %}
+
+{% block body %}
+
+  <h1 class="mb-4">查看问卷清单</h1>
+    <div class="col">
+            <a  href="{{ url_for('questionnaire.add_questionnaire') }}" class="btn btn-primary float-right mb-3">添加问卷</a>
+        </div>
+  <hr>
+
+  <div class="row">
+    <div class="col-md-10">
+      <table class="table table-striped table-hover" >
+        <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+            <th>问卷名称</th>
+            <th>问卷描述</th>
+              <th>来源</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for questionnaire in questionnaires %}
+          <tr>
+            <th scope="row">{{ questionnaire.id }}</th>
+            <td>{{ questionnaire.title }}</td>
+            <td>{{ questionnaire.description }}</td>
+          <td>{{ questionnaire.user.username }}</td>
+            <td>
+                {% if questionnaire.user_id ==user_id %}
+                 <a href="{{ url_for('questionnaire.edit_questionnaire', questionnaire_id=questionnaire.id) }}" class="btn btn-primary btn-sm">修改<i class="fa fa-pencil"></i></a>
+                    <form method="POST" action="{{ url_for('questionnaire.delete_questionnaire', questionnaire_id=questionnaire.id) }}" class="delete-form" onsubmit="return confirm('确定删除这份调查问卷吗？');">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn btn-danger btn-sm">删除<i class="fa fa-trash"></i></button>
+                            </form>
+                {% endif %}
+              <a href="{{ url_for('questionnaire.answer_questionnaire', questionnaire_id=questionnaire.id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i> 作答</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

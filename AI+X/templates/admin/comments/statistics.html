@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <h1>评论统计数据</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <p>总评论字数：{{ total_count }}</p>
+      <p>总回复字数：{{ reply_count }}</p>
+      <p>各词出现次数：</p>
+      {{ html | safe }}
+    </div>
+  </div>
+{% endblock %}

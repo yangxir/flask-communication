@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html'as wtf %}
+{% block title %}查看问卷{{ questionnaire.title }}{% endblock %}
+
+{% block body %}
+<h2>{{ questionnaire.title }}</h2>
+<p>{{ questionnaire.description }}</p>
+
+<form method="POST" action="{{ url_for('questionnaire.answer_questionnaire', questionnaire_id=questionnaire.id) }}">
+    {% for question in questions %}
+    <h4>{{ question.content }}</h4>
+    {% if question.type == 1 %}
+    <div>
+        {% for option in question.options %}
+        <input type="radio" name="question_{{ question.id }}" value="{{ option.id }}" id="option_{{ option.id }}">
+        <label for="option_{{ option.id }}">{{ option.content }}</label><br>
+        {% endfor %}
+    </div>
+    {% else %}
+
+    <input  type="text" name="question_{{ question.id }}" value="" required><br>
+    {% endif %}
+    {% endfor %}
+
+    <button type="submit">提交答案</button>
+</form>
+{% endblock %}

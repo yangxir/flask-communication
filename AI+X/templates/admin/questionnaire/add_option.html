@@ -1,0 +1,20 @@
+{% extends 'admin/admin_index.html' %}
+
+{% block body %}
+<div class="container mt-3">
+  <h1 class="mb-3">添加问题选项：</h1>
+  <form method="post" action="{{ url_for('admin_questionnaire.add_option', question_id=question.id) }}">
+
+    <div class="form-group">
+      {% for option in form.options %}
+        <div class="form-group">
+          {{ option.content.label }}
+          {{ option.content(class_='form-control') }}
+        </div>
+      {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary">添加选项</button>
+    <a class="btn btn-secondary" href="{{ url_for('admin_questionnaire.edit_question', question_id=question.id) }}">取消</a>
+  </form>
+</div>
+{% endblock %}

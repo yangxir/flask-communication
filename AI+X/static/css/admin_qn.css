@@ -1,0 +1,49 @@
+
+.container {
+  margin-top: 30px;
+}
+
+h2 {
+  text-align: center;
+}
+
+hr {
+  margin: 20px 0;
+}
+
+table {
+  font-size: 14px;
+}
+
+table th, table td {
+  text-align: center;
+  vertical-align: middle !important;
+}
+
+.table thead th {
+  font-size: 16px;
+}
+
+.btn-primary {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9 !important;
+  border-color: #0062cc !important;
+}
+
+.btn-danger {
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+}
+
+.btn-danger:hover {
+  background-color: #c82333 !important;
+  border-color: #bd2130 !important;
+}
+
+.delete-form {
+  display: inline-block;
+}

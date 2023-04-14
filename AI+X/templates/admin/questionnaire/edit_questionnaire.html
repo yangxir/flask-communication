@@ -1,0 +1,53 @@
+{% extends 'admin/admin_index.html' %}
+
+{% block body %}
+  <h1>编辑调查表</h1>
+
+  <div class="col-md-6">
+    <form action="{{ url_for('admin_questionnaire.edit_questionnaire', questionnaire_id=questionnaire.id) }}" method="POST">
+      <div class="form-group">
+        <label>标题</label>
+        <input type="text" name="title" class="form-control" value="{{ questionnaire.title }}" >
+      </div>
+      <div class="form-group">
+        <label>描述</label>
+        <input name="description" class="form-control" value="{{ questionnaire.description }}"></input>
+      </div>
+      <div class="form-group" style="text-align: right;">
+        <button class="btn btn-primary">发布</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-md-6">
+    <h2>问题列表</h2>
+    <ul class="list-group">
+    {% for question in questionnaire.questions %}
+<li class="list-group-item">
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <span>{{ question.content }}</span>
+      {% if question.type == 1 %}
+      <span class="badge badge-primary ml-2">单选题</span>
+      {% else %}
+      <span class="badge badge-secondary ml-2">问答题</span>
+      {% endif %}
+    </div>
+    <div>
+      <form method="POST" action="{{ url_for('admin_questionnaire.delete_question', question_id=question.id) }}" class="delete-form" onsubmit="return confirm('确定删除这个问题吗？');">
+        <input type="hidden" name="_method" value="DELETE">
+
+        <button type="submit" class="btn btn-danger btn-sm mr-2">删除</button>
+      </form>
+      <a href="{{ url_for('admin_questionnaire.edit_question', question_id=question.id) }}" class="btn btn-sm btn-primary">编辑</a>
+    </div>
+  </div>
+</li>
+{% endfor %}
+
+
+    </ul>
+
+    <a href="{{ url_for('admin_questionnaire.add_question', questionnaire_id=questionnaire.id) }}" class="btn btn-primary">添加问题</a>
+  </div>
+{% endblock %}

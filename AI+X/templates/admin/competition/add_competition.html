@@ -1,0 +1,60 @@
+{% extends "admin/admin_index.html" %}
+
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}添加竞赛{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock %}
+
+{% block body %}
+  <h1>添加竞赛</h1>
+  <hr>
+  <div class="container">
+    <div class="col-md-6">
+      <form method="POST">
+        <div class="form-group">
+          <label for="exampleInputCompetitionName">竞赛名称</label>
+          <input type="text" class="form-control" id="name" aria-describedby="CompetitionNameHelp" name="name">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputStartTime">开始时间</label>
+          <input type="text" class="form-control flatpickr" name="start_time">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEndTime">结束时间</label>
+          <input type="text" class="form-control flatpickr" name="end_time" id="end_time">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputType">类型</label>
+          <select name="type" class="form-control" id="type">
+            <option value="算法竞赛">算法竞赛</option>
+            <option value="数据竞赛">数据竞赛</option>
+            <option value="智能交通竞赛">智能交通竞赛</option>
+            <option value="机器人竞赛">机器人竞赛</option>
+            <option value="计算机视觉竞赛">计算机视觉竞赛</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputLevel">等级</label>
+          <select name="level" class="form-control" id="level">
+            <option value="国家级">国家级</option>
+            <option value="省级">省级</option>
+            <option value="市级">市级</option>
+            <option value="国际级">国际级</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">立即添加</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    flatpickr('.flatpickr', {
+      enableTime: true,
+      dateFormat: 'Y-m-d H:i:S'
+    });
+  </script>
+{% endblock %}

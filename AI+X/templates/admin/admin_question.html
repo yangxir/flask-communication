@@ -1,0 +1,33 @@
+{% extends 'admin/admin_index.html' %}
+
+{% block body %}
+<h1>问答管理</h1>
+<a href="{{ url_for('admin_question.add_question') }}" class="btn btn-success" style="float:right;">添加问题</a>
+<div class="table-responsive">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>标题</th>
+                <th>发布时间</th>
+                <th>发布人</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for question in questions %}
+            <tr>
+                <td>{{ question.id }}</td>
+                <td>{{ question.title }}</td>
+                <td>{{ question.create_time }}</td>
+                <td>{{ question.author.username }}</td>
+                <td>
+                    <a href="{{ url_for('admin_question.edit_question', question_id=question.id) }}" class="btn btn-primary btn-sm">修改</a>
+                    <a href="{{ url_for('admin_question.delete_question', question_id=question.id) }}" class="btn btn-danger btn-sm">删除</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

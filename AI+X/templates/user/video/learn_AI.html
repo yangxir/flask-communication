@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}视频列表{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% for video in videos %}
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <video class="card-img-top" src="{{ url_for('static', filename='movie/' + video.file) }}" controls></video>
+                    <div class="card-body">
+                      <a class="card-title" href="{{ url_for('learn.video_detail', video_id=video.id) }}" style="color:black; transition: color 0.2s ease-in-out; ">{{ video.title }}</a>
+                        <p class="card-text">播放次数：{{ video.count }}</p>
+
+
+                           <a href="{{ url_for('learn.video_detail', video_id=video.id) }}" class="btn btn-primary">查看详情</a>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

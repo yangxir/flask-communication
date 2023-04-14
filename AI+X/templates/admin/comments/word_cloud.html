@@ -1,0 +1,7 @@
+{% extends 'admin/admin_index.html' %}
+
+{% block body %}
+  <h1>评论统计词云</h1>
+  {% set image_url = url_for('static', filename='images/word_cloud.png') %}
+  <img src="{{ image_url }}" alt="词云图">
+{% endblock %}

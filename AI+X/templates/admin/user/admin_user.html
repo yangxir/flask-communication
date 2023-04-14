@@ -1,0 +1,63 @@
+{% extends "admin/admin_index.html" %}
+
+{% block title %}”人工智能+x“交叉学科交流平台-管理用户主页{% endblock %}
+
+{% block head %}
+{% endblock %}
+{% block body %}
+<div class="row mt-4">
+    <div class="col">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item ml-2">
+                        <form class="form-inline my-2 my-lg-0" method="GET" >
+                            <a class="btn btn-outline-success my-2 my-sm-0" type="submit" href="{{ url_for('admin_user.search') }}">搜索</a>
+                        </form>
+                    </li>
+        </ul>
+    </div>
+<br>
+    <div class="container" >
+
+    <hr>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">数据列表</div>
+    <a href="{{ url_for('admin_user.add_user') }}" class="btn btn-primary btn-sm" style="float:right;">添加用户</a>
+ <div class="panel-body">
+        </div>
+       <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>用户名</th>
+            <th>邮箱</th>
+            <th>注册时间</th>
+            <th>数据操作</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <th scope="row">{{ user.id }}</th>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.join_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+
+                       <td>
+              <a href="{{ url_for('admin_user.edit_user', user_id=user.id) }}" class="btn btn-primary btn-sm">修改<i class="fa fa-pencil"></i></a>
+              <a href="{{ url_for('admin_user.delete_user', user_id=user.id) }}" class="btn btn-danger btn-sm">删除<i class="fa fa-trash"></i></a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+
+
+    </div>
+
+    </div>
+</div>
+{% endblock %}
+

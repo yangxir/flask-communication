@@ -1,0 +1,59 @@
+{% extends "admin/admin_index.html" %}
+
+{% block title %}
+搜索用户 - 人工智能+x
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h3 class="text-center mb-5">搜索用户</h3>
+                <form action="{{ url_for('admin_user.search') }}" method="POST">
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="keyword" name="keyword" placeholder="输入用户名、邮箱或ID">
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">搜索</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% if users %}
+        <div class="row mt-5">
+            <div class="col">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>用户名</th>
+                            <th>邮箱</th>
+                            <th>注册时间</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.join_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                              <td>
+              <a href="{{ url_for('admin_user.edit_user', user_id=user.id) }}" class="btn btn-primary btn-sm">修改<i class="fa fa-pencil"></i></a>
+              <a href="{{ url_for('admin_user.delete_user', user_id=user.id) }}" class="btn btn-danger btn-sm">删除<i class="fa fa-trash"></i></a>
+            </td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
