@@ -58,3 +58,21 @@ $ pip install -r requirements.txt
 1. 新增功能：个人中心可以进入，编辑、查看自己的评论、问题、问卷。
 2. 新增功能：管理员可以查看问卷回答情况。
 3. 新增功能：视频开放评论区。
+
+
+## 截图
+![主页.png](https://s2.loli.net/2023/04/17/Su9IvAVnzJeUabr.png)
+
+![个人主页.png](https://s2.loli.net/2023/04/17/6oquDryjEApbKRC.png)
+
+![调查问卷页面.png](https://s2.loli.net/2023/04/17/hNSgDHWiavkuBZ9.png)
+
+![管理员界面.png](https://s2.loli.net/2023/04/17/pCHmIcoF5hq1l9U.png)
+
+![学习视频页面.png](https://s2.loli.net/2023/04/17/yuYXIB8nOjhPWHR.png)
+
+![用户管理.png](https://s2.loli.net/2023/04/17/ZkYNp37eb9gsWHK.png)
+
+![视频界面.png](https://s2.loli.net/2023/04/17/LWAj9KdMxaRu4Jw.png)
+
+![视频评论界面.png](https://s2.loli.net/2023/04/17/dH1VlweFvEbG98f.png)
