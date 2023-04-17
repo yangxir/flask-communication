@@ -1,4 +1,5 @@
 from flask import current_app
+from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import text
 
 from exts import db
@@ -6,15 +7,22 @@ from datetime import datetime
 
 
 class UserModel(db.Model):
-    __tabelname__ = "user_model"
+    __tablename__ = "user_model"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(200), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     join_time = db.Column(db.DateTime, default=datetime.now)
+    avatar = db.Column(db.String(200))  # new column for user avatar
 
     def __repr__(self):
         return self.username
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
 
 class AdminModel(db.Model):

@@ -1,0 +1,30 @@
+{#已经作答问卷列表#}
+
+{% extends "base.html" %}
+{% block body %}
+<div class="container mt-5">
+    <h1>{{ user.username }}已经作答的问卷</h1>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col">
+            <a href="{{ url_for('auth.user_self', user_id=user.id) }}" class="btn btn-outline-primary">返回个人中心</a>
+        </div>
+    </div>
+</div>
+    {% if questionnaires %}
+        <div class="list-group">
+            {% for questionnaire in questionnaires %}
+                <a href="{{ url_for('auth.user_questionnaire_answers', questionnaire_id=questionnaire.id,user_id=user.id) }}" class="list-group-item list-group-item-action">
+                    <h5>问卷标题：{{ questionnaire.title }}</h5>
+                    <p>问卷描述：{{ questionnaire.description }}</p>
+                    <p>创建时间: {{ questionnaire.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                    <p>最后更新时间: {{ questionnaire.updated_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>暂无问卷</p>
+    {% endif %}
+</div>
+{% endblock %}

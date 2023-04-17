@@ -4,6 +4,29 @@
 
 {% block head %}
     <link rel="stylesheet" href="/static/css/index.css">
+    <style>
+ .question-author-info {
+        float: right;
+    }
+
+    .question-author-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+
+    .question-author {
+        margin-left: 10px;
+        font-size: 18px;
+
+    }
+
+    .question-time {
+        margin-left: 10px;
+        font-size: 14px;
+        color: #999;
+    }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -14,8 +37,11 @@
                     {% for question in questions %}
     <li>
         <div class="side-question">
-            <img class="side-question-avatar" src="/static/images/avatar.jpg" alt="">
-        </div>
+           {% if question.author.avatar %}
+        <img class="question-author-avatar" src="{{ url_for('static', filename='images/avatar/thumbnails/' + question.author.avatar) }}" alt="Avatar">
+    {% else %}
+       <img class="question-author-avatar" src="{{ url_for('static', filename='images/avatar.jpg' ) }}" alt="Avatar">
+    {% endif %}</div>
         <div class="question-main">
             <div class="question-title"><a href="{{ url_for('AI+X.qa_detail', qa_id=question.id) }}">{{ question.title }}</a></div>
             <p class="question-content" style="white-space: pre-line;">
@@ -27,9 +53,12 @@
             </p>
 
             <div class="question-detail">
-                <span class="question-author">{{ question.author.username }}</span>
-                <span class="question-time">{{ question.create_time }}</span>
-            </div>
+
+    <span class="question-author">{{ question.author.username }}</span>
+    <span class="question-time">{{ question.create_time }}</span>
+</div>
+
+
         </div>
     </li>
 {% endfor %}

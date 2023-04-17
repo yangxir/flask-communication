@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}问卷统计{% endblock %}
+
+{% block body %}
+  <div class="container mt-5">
+    <a href="{{ url_for('admin_questionnaire.index') }}" class="btn btn-secondary mb-4"><i class="fa fa-arrow-left"></i> 返回</a>
+    <h1 class="text-center mb-5">{{ questionnaire.title }}</h1>
+    {% for question_answer in questions_answers %}
+      <div class="card mb-4">
+        <div class="card-header">问题：{{ question_answer.question }}</div>
+        <div class="card-body">
+          {% if question_answer.answers %}
+            <ul class="list-group list-group-flush">
+              {% for answer, count in question_answer.answers.items() %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  回答：{{ answer }}
+                  <span class="badge badge-primary badge-pill">数量：{{ count }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">暂无答案</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

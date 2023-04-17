@@ -40,41 +40,55 @@ footer a:hover {
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">论坛<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{url_for('learn.index')}}">学习视频</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{url_for('questionnaire.index')}}">调查问卷</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{url_for('competition.index')}}">竞赛情况</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{url_for('AI+X.public_question')}}">发布问答</a>
-        </li>
-        <li class="nav-item ml-2">
-          <form class="form-inline my-2 my-lg-0" method="GET" action="{{url_for('AI+X.search')}}">
-            <input class="form-control mr-sm-2" type="search" placeholder="关键字" aria-label="Search" name="q">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
-          </form>
-        </li>
-      </ul>
-
+     <ul class="navbar-nav mr-auto">
+  <li class="nav-item active">
+    <a class="nav-link" href="/">论坛<span class="sr-only">(current)</span></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('learn.index')}}">学习视频</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('questionnaire.index')}}">调查问卷</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('competition.index')}}">竞赛情况</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('AI+X.public_question')}}">发布问答</a>
+  </li>
+  <li class="nav-item ml-2">
+    <form class="form-inline my-2 my-lg-0" method="GET" action="{{url_for('AI+X.search')}}">
+      <div class="input-group">
+        <input class="form-control" type="search" placeholder="搜索" aria-label="Search" name="q">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="submit">搜索</button>
+        </div>
+      </div>
+    </form>
+  </li>
+</ul>
       <ul class="navbar-nav">
         {% if user %}
-        <li class="nav-item">
-          <a class="nav-link" href="#">{{user.username}}</a>
-        </li>
+        <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {{ user.username }}
+  </a>
+  <div class="dropdown-menu" aria-labelledby="userDropdown">
+    <a class="dropdown-item" href="{{ url_for('auth.user_self', user_id=user.id) }}">个人主页</a>
+    <a class="dropdown-item" href="{{ url_for('auth.edit_self', user_id=user.id) }}">编辑个人资料</a>
+    <a class="dropdown-item" href="{{ url_for('auth.user_questions', user_id=user.id) }}">我的问题</a>
+    <a class="dropdown-item" href="{{ url_for('auth.user_answers', user_id=user.id) }}">我的回答</a>
+    <a class="dropdown-item" href="{{ url_for('auth.user_comments', user_id=user.id) }}">我的评论</a>
+    <a class="dropdown-item" href="{{ url_for('auth.user_questionnaires', user_id=user.id) }}">我的问卷</a>
+    </div>
+</li>
+
         <li class="nav-item">
           <a class="nav-link" href="{{url_for('auth.logout')}}">退出</a>
         </li>
         {% elif admin %}
         <li class="nav-item">
-          <span class="nav-link">admin</span>
+          <a class="nav-link" href="{{ url_for('admin.index') }}">admin</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">管理</a>

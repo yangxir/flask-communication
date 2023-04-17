@@ -1,18 +1,49 @@
 {% extends "base.html" %}
 
 {% block title %}视频详细{% endblock %}
- <head>
+{% block head %}
 <script src="{{ url_for('static', filename='js/count_video.js')}}"></script>
 <style>
-    .card-text {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-    margin-bottom: 10px;
+.card {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
+.comment-author-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.comment-details {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 10px;
+}
+
+.comment-author-name {
+  font-weight: bold;
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.comment-create-time {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.comment-content {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 10px;
+}
 </style>
- </head>
+
+{% endblock %}
 {% block body %}
     <div class="container">
         <div class="row mt-5">
@@ -39,33 +70,47 @@
         </div>
        {% if comments %}
     <!-- 如果有评论，则显示评论列表 -->
-    <div class="row mt-5">
-        <div class="col-md-12">
-            <h3>评论列表</h3>
-            {% for comment in comments %}
-                <div class="card mt-3">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                                               <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ comment.user.username }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ comment.create_time.strftime('%Y-%m-%d %H:%M:%S') }}</h6>
-                            <p class="card-text">{{ comment.content }}</p>
+  <div class="row mt-5">
+    <div class="col-md-12">
+        <h3>评论列表</h3>
+        {% for comment in comments %}
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="card mb-3">
+                            <div class="comment-details d-flex justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    {% if comment.user.avatar %}
+                                        <img class="comment-author-avatar rounded-circle mr-2" src="{{ url_for('static', filename='images/avatar/thumbnails/' + comment.user.avatar) }}" alt="Avatar">
+                                    {% else %}
+                                        <img class="comment-author-avatar rounded-circle mr-2" src="{{ url_for('static', filename='images/avatar.jpg' ) }}" alt="Avatar">
+                                    {% endif %}
+                                    <div class="d-flex flex-column">
+                                        <h5 class="comment-author-name">{{ comment.user.username }}</h5>
+                                        <h6 class="comment-create-time">{{ comment.create_time.strftime('%Y-%m-%d %H:%M:%S') }}</h6>
+                                    </div>
+                                </div>
+                                {% if comment.user.id == session.get('user_id') %}
+                                    <form method="post" action="{{ url_for('learn.delete_comment', comment_id=comment.id) }}" class="ml-auto">
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('确定要删除这条评论吗？')">删除</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                            <p class="comment-content mt-2" style="white-space: pre-line;">{{ comment.content }}</p>
                         </div>
                     </div>
-
-                    </div>
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
     </div>
+</div>
+
 {% else %}
     <!-- 如果没有评论，则显示提示消息 -->
     <div class="row mt-5">
         <div class="col-md-12 mt-5 p-4 bg-light text-center">
   <p class="h5 mb-3">快来参与视频评论交流吧！</p>
-  <a href="{{ url_for('auth.login') }}" class="btn btn-primary">登录</a>
-  <a href="{{ url_for('auth.register') }}" class="btn btn-secondary">注册</a>
+
 </div>
 
     </div>

@@ -9,7 +9,7 @@ from exts import db
 
 from flask.views import MethodView
 
-from models import QuestionnaireModel, Questionnaire_QuestionModel, Questionnaire_OptionModel
+from models import QuestionnaireModel, Questionnaire_QuestionModel, Questionnaire_OptionModel, Questionnaire_AnswerModel
 
 bp = Blueprint('admin_questionnaire', __name__, url_prefix='/admin_questionnaire')
 
@@ -57,7 +57,7 @@ def add_question(questionnaire_id):
         question = Questionnaire_QuestionModel(content=form.content.data,
                                                type=form.type.data,
                                                questionnaire_id=questionnaire_id,
-                                               user_id = 111)
+                                               user_id=111)
         db.session.add(question)
         db.session.commit()
         if form.type.data == '1':  # 如果是选择题
@@ -132,3 +132,25 @@ def delete_question(question_id):
 
     flash('问题删除成功', 'success')
     return redirect(url_for('admin_questionnaire.edit_questionnaire', questionnaire_id=question.questionnaire_id))
+
+
+@bp.route('/questionnaire/<int:questionnaire_id>/stats')
+def questionnaire_stats(questionnaire_id):
+    questionnaire = QuestionnaireModel.query.get(questionnaire_id)
+    if not questionnaire:
+        return 'Questionnaire not found'
+    questions_answers = []
+    for question in questionnaire.questions:
+        answers = Questionnaire_AnswerModel.query.filter_by(question_id=question.id).all()
+        answer_count = {}
+        for answer in answers:
+            if answer.option_id:
+                option_content = Questionnaire_OptionModel.query.get(answer.option_id).content
+            else:
+                option_content = answer.content
+            if option_content not in answer_count:
+                answer_count[option_content] = 0
+            answer_count[option_content] += 1
+        questions_answers.append({'question': question.content, 'answers': answer_count})
+    return render_template('admin/questionnaire/questionnaire_stats.html', questionnaire=questionnaire,
+                           questions_answers=questions_answers)

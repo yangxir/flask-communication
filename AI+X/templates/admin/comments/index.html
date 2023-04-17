@@ -1,7 +1,10 @@
 {% extends 'admin/admin_index.html' %}
 
 {% block body %}
+
     <h1>评论列表</h1>
+     <a href="{{ url_for('admin.index') }}" class="btn btn-secondary mb-3">返回首页</a>
+
     <a href="{{ url_for('admin_comments.word_cloud') }}" class="btn btn-success" style="float:right;">查看统计词云</a>
     <a href="{{ url_for('admin_comments.statistics') }}" class="btn btn-success" style="float:right;">查看统计评论</a>
     <div class="table-responsive">

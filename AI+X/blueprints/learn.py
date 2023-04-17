@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session, redirect, url_for, flash, jsonify
+from flask import Blueprint, render_template, request, session, redirect, url_for, flash, jsonify, abort
 import os
 
 from sqlalchemy.sql.functions import current_user
@@ -48,3 +48,13 @@ def comments(video_id):
     comments_1 = Comment.query.filter_by(video_id=video_id).all()
     return render_template('user/video/video_detail.html', video=video, comments=comments_1)
 
+@bp.route('/comments/<int:comment_id>/delete', methods=['POST'])
+@login_required
+def delete_comment(comment_id):
+    comment = Comment.query.get_or_404(comment_id)
+    if comment.user.id != session.get('user_id'):
+        abort(403)
+    db.session.delete(comment)
+    db.session.commit()
+    flash('评论已删除。', 'success')
+    return redirect(url_for('learn.video_detail', video_id=comment.video_id))

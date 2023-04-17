@@ -4,6 +4,8 @@
 
 {% block body %}
   <h1>竞赛管理</h1>
+     <a href="{{ url_for('admin.index') }}" class="btn btn-secondary mb-3">返回首页</a>
+
   <hr>
   <a href="{{ url_for('admin_competition.add_competition') }}" class="btn btn-primary float-right mb-3">添加竞赛</a>
 

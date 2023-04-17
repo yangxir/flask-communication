@@ -15,7 +15,7 @@ bp = Blueprint('admin_question', __name__, url_prefix='/admin_question')
 @admin_login_required
 def index():
     questions = QuestionModel.query.all()
-    return render_template('admin/admin_question.html', questions=questions)
+    return render_template('admin/question/admin_question.html', questions=questions)
 
 
 @bp.route('/add_question', methods=['GET', 'POST'])

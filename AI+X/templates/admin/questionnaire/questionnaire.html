@@ -9,6 +9,7 @@
 {% block body %}
     <div class="container">
         <h2>调查问卷</h2>
+ <a href="{{ url_for('admin.index') }}" class="btn btn-secondary mb-3">返回首页</a>
 
         <hr>
 
@@ -38,6 +39,8 @@
 
                         <td>
                             <a href="{{ url_for('admin_questionnaire.edit_questionnaire', questionnaire_id=questionnaire.id) }}" class="btn btn-primary btn-sm">修改<i class="fa fa-pencil"></i></a>
+                            <a href="{{ url_for('admin_questionnaire.questionnaire_stats', questionnaire_id=questionnaire.id) }}" class="btn btn-primary btn-sm">统计<i class="fa fa-pencil"></i></a>
+
                             <form method="POST" action="{{ url_for('admin_questionnaire.delete_questionnaire', questionnaire_id=questionnaire.id) }}" class="delete-form" onsubmit="return confirm('确定删除这份调查问卷吗？');">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="btn btn-danger btn-sm">删除<i class="fa fa-trash"></i></button>

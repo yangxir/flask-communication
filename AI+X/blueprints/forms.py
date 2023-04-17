@@ -187,3 +187,16 @@ class Answer_QuestionnaireForm(wtforms.Form):
                         validators=[InputRequired()],
                     )
                 self[str(question.id)] = field
+
+
+class AvatarUploadForm(wtforms.Form):
+    avatar = wtforms.FileField('Upload Avatar', validators=[DataRequired()])
+    submit = wtforms.SubmitField('Upload')
+
+class EditProfileForm(wtforms.Form):
+    username = wtforms.StringField('Username', validators=[DataRequired()])
+    email = wtforms.StringField('Email', validators=[DataRequired(), Email()])
+    password = wtforms.PasswordField('Password')
+    password_confirm = wtforms.PasswordField('Confirm Password', validators=[EqualTo('password', message='Passwords must match')])
+    avatar = wtforms.FileField('Avatar', validators=[])
+    submit = wtforms.SubmitField('Save Changes')

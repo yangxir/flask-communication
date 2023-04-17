@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card mb-3">
+        <div class="card-body text-center">
+          {% if user.avatar %}
+            <img src="{{ url_for('static', filename='images/avatar/thumbnails/' + user.avatar) }}" alt="Avatar" class="img-fluid rounded-circle mb-3">
+          {% else %}
+            <i class="fas fa-user-circle fa-9x mb-3"></i>
+          {% endif %}
+          <h4 class="card-title">{{ user.username }}</h4>
+          <p class="card-text">{{ user.email }}</p>
+          <p class="card-text">注册时间：{{ user.join_time.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+          <a href="{{ url_for('auth.edit_self',user_id=user.id) }}" class="btn btn-primary btn-sm">编辑资料</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <select class="form-control custom-select" onchange="location = this.value;">
+    <option selected disabled>选择选项</option>
+    <option value="{{ url_for('auth.edit_self', user_id=user.id) }}">编辑个人资料</option>
+    <option value="{{ url_for('auth.user_questions', user_id=user.id) }}">我的问题</option>
+    <option value="{{ url_for('auth.user_answers', user_id=user.id) }}">我的回答</option>
+    <option value="{{ url_for('auth.user_comments', user_id=user.id) }}">我的评论</option>
+    <option value="{{ url_for('auth.user_questionnaires', user_id=user.id) }}">我的问卷</option>
+   </select>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

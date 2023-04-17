@@ -1,68 +1,86 @@
 {% extends "base.html" %}
 
-{% block title %}”人工智能+x“交叉学科交流平台-管理员主页{% endblock %}
+{% block title %}"人工智能+x"交叉学科交流平台-管理员主页{% endblock %}
 
 {% block head %}
 <style>
-.navbar {
-    background-color: #007bff;
-    color: white;
-}
+    .navbar {
+        background-color: #007bff;
+        color: white;
+    }
 
-.nav-link {
-    color: white;
-}
-.page-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
+    .nav-link {
+        color: white;
+    }
 
-.page-heading {
-    font-weight: bold;
-    font-size: 2em;
-    text-align: center;
-    margin: 20px 0;
-}
+    .page-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .page-heading {
+        font-weight: bold;
+        font-size: 2em;
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .card-header {
+        font-weight: bold;
+        background-color: #f0f0f0;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
 </style>
 {% endblock %}
 
 {% block body %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="page-container">
-             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                 <ul class="navbar-nav mr-auto">
-                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('admin_user.index') }}">用户管理</a>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('admin_question.index') }}">问答管理</a>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('admin_answer.index') }}">评论管理</a>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('admin_competition.index') }}">竞赛管理</a>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('admin_videos.index') }}">视频管理</a>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('admin_comments.index') }}">视频评论管理</a>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('admin_questionnaire.index') }}">问卷问题管理</a>
-                    </li>
-                     </ul>
-             </div>
-
+    <div class="page-container">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_user.index') }}">用户管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_question.index') }}">问答管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_answer.index') }}">评论管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_competition.index') }}">竞赛管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_videos.index') }}">视频管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_comments.index') }}">视频评论管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_questionnaire.index') }}">问卷问题管理</a>
+                </li>
+            </ul>
         </div>
+    </div>
+</nav>
 
-
-    </nav>
-
-
+<div class="page-container">
+    <h1 class="page-heading">管理员主页</h1>
+    <div class="card">
+        <div class="card-header">系统信息</div>
+        <div class="card-body">
+            <p>欢迎来到管理员主页！您可以使用上方导航栏快速管理平台的各项功能。</p>
+            <p>当前系统运行状态：正常</p>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
-

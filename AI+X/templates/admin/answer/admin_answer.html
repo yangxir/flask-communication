@@ -6,6 +6,8 @@
     <div class="container">
         <br>
         <h1>评论管理</h1>
+     <a href="{{ url_for('admin.index') }}" class="btn btn-secondary mb-3">返回首页</a>
+
 <a href="{{ url_for('admin_answer.add_answer') }}" class="btn btn-success" style="float:right;">添加评论</a>
 
         {% if not answers.total %}
