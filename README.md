@@ -1,14 +1,15 @@
 # AI+X交流平台
 
 ## 介绍
-这只是一款基于flask开发的网页系统。
-内蒙古大学计算机学院2019级网络工程yxr毕业设计。
-从知了传课的qa项目学习的基础知识，进行扩展开发。原未扩展项目转https://github.com/yangxir/-qa-
+- 这只是一款基于flask开发的网页系统。
+- yangxir设计。
+- 基于知了传课的qa项目学习的基础知识，进行扩展开发。
+- 原 未扩展项目 转到 https://github.com/yangxir/-qa-
 
 ## 环境依赖
 - python3.7+
 - MySQL
-
+- FLask
 
 ## 部署步骤
 1. 修改 `config.py` 中的信息，包括邮箱、数据库等（需要先在 `admin` 表中添加账户 `admin` 密码 `admin`，在用户表中添加 `id` 为 `113`，用户名为 `admin`，密码随意，其他随意）。
