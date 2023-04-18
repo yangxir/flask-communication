@@ -11,7 +11,9 @@ bp = Blueprint('AI+X', __name__, url_prefix='/')
 # http://127.0.0.1:5000
 @bp.route('/')
 def index():
-    questions = QuestionModel.query.order_by(QuestionModel.create_time.desc()).all()
+    page = request.args.get('page', 1, type=int)
+    per_page = 5  # Set the number of questions per page
+    questions = QuestionModel.query.paginate(page=page, per_page=per_page)
     return render_template('index.html', questions=questions)
 
 

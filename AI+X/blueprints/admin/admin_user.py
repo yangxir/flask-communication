@@ -14,9 +14,10 @@ bp = Blueprint('admin_user', __name__, url_prefix='/admin_user')
 @bp.route("/index")
 @admin_login_required
 def index():
-    users = UserModel.query.all()
-    return render_template('admin/user/admin_user.html',users=users)
-
+    page = request.args.get('page', 1, type=int)
+    per_page = 10
+    users = UserModel.query.paginate(page=page, per_page=per_page)
+    return render_template('admin/user/admin_user.html', users=users)
 
 @bp.route('useradd/', methods=['GET', 'POST'])
 @admin_login_required

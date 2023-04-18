@@ -71,7 +71,7 @@
        {% if comments %}
     <!-- 如果有评论，则显示评论列表 -->
   <div class="row mt-5">
-    <div class="col-md-12">
+    <div class="col-md-12" id="comment-container">
         <h3>评论列表</h3>
         {% for comment in comments %}
             <div class="card mt-3">
@@ -102,6 +102,32 @@
                 </div>
             </div>
         {% endfor %}
+        <nav>
+            <ul class="pagination">
+                {% if comments.has_prev %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for('learn.video_detail', page=comments.prev_num,video_id=video.id) }}">上一页</a></li>
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#">上一页</a></li>
+                {% endif %}
+                {% for page_num in comments.iter_pages() %}
+                    {% if page_num %}
+                        {% if page_num != comments.page %}
+                            <li class="page-item"><a class="page-link" href="{{ url_for('learn.video_detail', page=page_num,video_id=video.id) }}">{{ page_num }}</a></li>
+                        {% else %}
+                            <li class="page-item active"><a class="page-link" href="#">{{ page_num }}</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if comments.has_next %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for('learn.video_detail', page=comments.next_num,video_id=video.id) }}">下一页</a></li>
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
     </div>
 </div>
 
@@ -122,26 +148,18 @@
 {% endblock %}
 {% block scripts %}
     <script>
-       // 获取视频元素
-const videoPlayer = document.getElementById('video-player');
 
-// 监听播放事件
-videoPlayer.addEventListener('play', () => {
-  // 发送AJAX请求到后端视图函数中，以增加观看数
-  const xhr = new XMLHttpRequest();
-  xhr.open('POST', `{{ url_for('learn.increase_watch_count', video_id=video.id) }}`);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.send();
-});
-// 获取当前观看数的<span>元素
-const watchCountSpan = document.getElementById('watch-count');
-
-// 监听AJAX请求返回的结果
-xhr.addEventListener('load', () => {
-  // 解析JSON并更新观看数
-  const data = JSON.parse(xhr.responseText);
-  watchCountSpan.innerText = data.watch_count;
-});
-
+function loadComments(pageNum, videoId) {
+      // 发送Ajax请求，获取新的评论列表
+      $.ajax({
+        url: '/video/' + videoId + '/comments?page=' + pageNum,
+        type: 'GET',
+        dataType: 'html',
+        success: function(data) {
+          // 将新的评论列表插入到包装容器中
+          $('#comment-container').html(data);
+        }
+      });
+    }
     </script>
 {% endblock %}

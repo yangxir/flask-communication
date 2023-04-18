@@ -22,7 +22,9 @@ def allowed_file(filename):
 @bp.route('/')
 @admin_login_required
 def index():
-    videos = VideoModel.query.all()
+    page = request.args.get('page', 1, type=int)
+    per_page = 10  # Set the number of questions per page
+    videos = VideoModel.query.paginate(page=page, per_page=per_page)
     return render_template('admin/video/admin_video.html', videos=videos)
 
 

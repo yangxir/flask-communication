@@ -13,7 +13,9 @@ bp = Blueprint('learn', __name__, url_prefix='/learn')
 
 @bp.route('/')
 def index():
-    videos = VideoModel.query.all()
+    page = request.args.get('page', 1, type=int)
+    per_page = 10  # Set the number of questions per page
+    videos = VideoModel.query.paginate(page=page, per_page=per_page)
     print(videos)
     return render_template('user/video/learn_AI.html', videos=videos)
 
@@ -27,8 +29,9 @@ def video_detail(video_id):
     # 保存更新后的视频对象到数据库
     db.session.add(video)
     db.session.commit()
-
-    comments_1 = Comment.query.filter_by(video_id=video_id).all()
+    page = request.args.get('page', 1, type=int)
+    per_page = 10  # Set the number of comments per page
+    comments_1 = Comment.query.filter_by(video_id=video_id).paginate(page=page, per_page=per_page)
     return render_template('user/video/video_detail.html', video=video, comments=comments_1)
 
 

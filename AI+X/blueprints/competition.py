@@ -15,5 +15,7 @@ bp = Blueprint('competition', __name__, url_prefix='/competition')
 
 @bp.route('/')
 def index():
-    competitions = CompetitionModel.query.all()
+    page = request.args.get('page', 1, type=int)
+    per_page = 10  # Set the number of questions per page
+    competitions = CompetitionModel.query.paginate(page=page, per_page=per_page)
     return render_template('competition.html', competitions=competitions)

@@ -28,7 +28,9 @@ matplotlib.rcParams['font.family'] = 'AaMakeTi-2'
 @bp.route('/')
 @admin_login_required
 def index():
-    comments = Comment.query.all()
+    page = request.args.get('page', 1, type=int)
+    per_page = 5  # Set the number of questions per page
+    comments = Comment.query.paginate(page=page, per_page=per_page)
     return render_template('admin/comments/index.html', comments=comments)
 
 @bp.route('/delete_comment/<int:comment_id>', methods=['POST'])

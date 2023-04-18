@@ -12,8 +12,10 @@ bp = Blueprint('admin_answer', __name__, url_prefix='/admin_answer')
 @bp.route('/')
 @admin_login_required
 def index():
-    answers = AnswerModel.query.paginate(error_out=False)
-    # questions = QuestionModel.query.order_by(QuestionModel.create_time.desc()).all()
+    page = request.args.get('page', 1, type=int)
+    per_page = 10  # Set the number of questions per page
+    answers = AnswerModel.query.paginate(page=page, per_page=per_page)
+
     return render_template('admin/answer/admin_answer.html', answers=answers)
 
 

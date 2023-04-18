@@ -17,8 +17,9 @@ bp = Blueprint('admin_questionnaire', __name__, url_prefix='/admin_questionnaire
 @bp.route('/', methods=['GET', 'POST'])
 @admin_login_required
 def index():
-    questionnaire = QuestionnaireModel.query.all()
-    print(questionnaire)
+    page = request.args.get('page', 1, type=int)
+    per_page = 10  # Set the number of questions per page
+    questionnaire = QuestionnaireModel.query.paginate(page=page, per_page=per_page)
     return render_template('admin/questionnaire/questionnaire.html', questionnaires=questionnaire)
 
 

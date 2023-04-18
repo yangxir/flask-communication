@@ -16,7 +16,9 @@ bp = Blueprint('questionnaire', __name__, url_prefix='/questionnaire')
 @bp.route('/', methods=['GET', 'POST'])
 def index():
     # 实例化Questionnaire类对象
-    questionnaires = QuestionnaireModel.query.all()
+    page = request.args.get('page', 1, type=int)
+    per_page = 10  # Set the number of questions per page
+    questionnaires = QuestionnaireModel.query.paginate(page=page, per_page=per_page)
     user_id = session.get('user_id')
     return render_template('user/questionnaire/questionnaire.html', questionnaires=questionnaires, user_id = user_id)
 
