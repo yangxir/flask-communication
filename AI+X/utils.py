@@ -10,8 +10,9 @@ from wordcloud import WordCloud
 
 from models import Comment
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
 # 设置中文字体
-font = FontProperties(fname='E:/A-10-Temporary_test/last_test/flask-qa-main/AI+X/static/AaMaKeTi-2.ttf')
+font = FontProperties(fname=os.path.join(current_dir, 'static/AaMaKeTi-2.ttf'))
 
 
 def generate_word_cloud():
@@ -30,7 +31,7 @@ def generate_word_cloud():
     wc.generate_from_frequencies(counter)
 
     # 保存词云图片到静态文件夹
-    image_path = os.path.join(os.path.dirname(__file__), 'static', 'images', 'word_cloud.png')
+    image_path = os.path.join(current_dir, 'static', 'images', 'word_cloud.png')
 
     wc.to_file(image_path)
 
@@ -63,9 +64,19 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-def save_avatar_thumbnail(avatar_filename, thumbnail_filename, size=(100, 100)):
-
-    with Image.open(avatar_filename) as img:
+def save_avatar_thumbnail(avatar_path, thumbnail_path, size=(100, 100)):
+    with Image.open(avatar_path) as img:
         img = img.convert('RGB')  # 将图片转换为 RGB 模式
         img.thumbnail(size)
-        img.save(thumbnail_filename)
+        print(thumbnail_path)
+        img.save(thumbnail_path)
+
+
+def get_static_path():
+    static_dir = os.path.join(current_dir, 'static/movie').replace('\\', '/')
+    return static_dir
+
+
+def get_avatar_path():
+    avatar_path = os.path.join(current_dir, 'static/images/avatar').replace('\\', '/')
+    return avatar_path

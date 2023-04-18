@@ -1,0 +1,443 @@
+卷 新加卷 的文件夹 PATH 列表
+卷序列号为 4EF9-237B
+E:\A-10-TEMPORARY_TEST\LAST_TEST\FLASK-QA-MAIN\AI+X
+│  app.py
+│  city_ratio.png
+│  config.py
+│  contest_info.json
+│  decorators.py
+│  dirtree.txt
+│  exts.py
+│  models.py
+│  requirements.txt
+│  utils.py
+│  xml_lib.py
+│  
+├─.idea
+│  │  .gitignore
+│  │  .name
+│  │  AI+X.iml
+│  │  jsLibraryMappings.xml
+│  │  misc.xml
+│  │  modules.xml
+│  │  workspace.xml
+│  │  
+│  └─inspectionProfiles
+│          profiles_settings.xml
+│          Project_Default.xml
+│          
+├─blueprints
+│  │  auth.py
+│  │  competition.py
+│  │  forms.py
+│  │  learn.py
+│  │  qa.py
+│  │  questionnaire.py
+│  │  user.py
+│  │  __init__.py
+│  │  
+│  ├─admin
+│  │  │  admin.py
+│  │  │  admin_answers.py
+│  │  │  admin_comments.py
+│  │  │  admin_competition.py
+│  │  │  admin_question.py
+│  │  │  admin_questionnaire.py
+│  │  │  admin_user.py
+│  │  │  admin_videos.py
+│  │  │  __init__.py
+│  │  │  
+│  │  └─__pycache__
+│  │          admin.cpython-37.pyc
+│  │          admin_answers.cpython-37.pyc
+│  │          admin_comments.cpython-37.pyc
+│  │          admin_competition.cpython-37.pyc
+│  │          admin_question.cpython-37.pyc
+│  │          admin_questionnaire.cpython-37.pyc
+│  │          admin_user.cpython-37.pyc
+│  │          admin_videos.cpython-37.pyc
+│  │          __init__.cpython-37.pyc
+│  │          
+│  └─__pycache__
+│          auth.cpython-36.pyc
+│          auth.cpython-37.pyc
+│          auth.cpython-39.pyc
+│          competition.cpython-36.pyc
+│          competition.cpython-37.pyc
+│          forms.cpython-36.pyc
+│          forms.cpython-37.pyc
+│          forms.cpython-39.pyc
+│          learn.cpython-36.pyc
+│          learn.cpython-37.pyc
+│          qa.cpython-36.pyc
+│          qa.cpython-37.pyc
+│          qa.cpython-39.pyc
+│          questionnaire.cpython-36.pyc
+│          questionnaire.cpython-37.pyc
+│          user.cpython-36.pyc
+│          user.cpython-37.pyc
+│          __init__.cpython-36.pyc
+│          __init__.cpython-37.pyc
+│          __init__.cpython-39.pyc
+│          
+├─file
+│      imoort_test.py
+│      movie.xml
+│      
+├─migrations
+│  │  alembic.ini
+│  │  env.py
+│  │  README
+│  │  script.py.mako
+│  │  
+│  ├─versions
+│  │  │  0fee365ecb9a_.py
+│  │  │  35bfedeb806c_.py
+│  │  │  610769b6c80d_.py
+│  │  │  6ebadfb804cf_.py
+│  │  │  75c77f37c051_.py
+│  │  │  811d8166b492_.py
+│  │  │  a128fdfc7118_.py
+│  │  │  af2bb7d927e5_.py
+│  │  │  cfe634b64a3c_.py
+│  │  │  
+│  │  └─__pycache__
+│  │          0fee365ecb9a_.cpython-37.pyc
+│  │          35bfedeb806c_.cpython-37.pyc
+│  │          610769b6c80d_.cpython-37.pyc
+│  │          6ebadfb804cf_.cpython-37.pyc
+│  │          75c77f37c051_.cpython-37.pyc
+│  │          811d8166b492_.cpython-37.pyc
+│  │          a128fdfc7118_.cpython-37.pyc
+│  │          af2bb7d927e5_.cpython-37.pyc
+│  │          cfe634b64a3c_.cpython-37.pyc
+│  │          
+│  └─__pycache__
+│          env.cpython-37.pyc
+│          
+├─static
+│  │  AaMaKeTi-2.ttf
+│  │  imagescity_ratio.png
+│  │  
+│  ├─bootstrap
+│  │      bootstrap.4.6.min.css
+│  │      wtf.html
+│  │      
+│  ├─css
+│  │  │  admin_qn.css
+│  │  │  base.css
+│  │  │  detail.css
+│  │  │  index.css
+│  │  │  init.css
+│  │  │  layui.css
+│  │  │  layui.mobile.css
+│  │  │  style.css
+│  │  │  
+│  │  └─modules
+│  │      │  code.css
+│  │      │  
+│  │      ├─laydate
+│  │      │  └─default
+│  │      │          laydate.css
+│  │      │          
+│  │      └─layer
+│  │          └─default
+│  │                  icon-ext.png
+│  │                  icon.png
+│  │                  layer.css
+│  │                  loading-0.gif
+│  │                  loading-1.gif
+│  │                  loading-2.gif
+│  │                  
+│  ├─images
+│  │  │  avatar.jpg
+│  │  │  city_ratio.png
+│  │  │  logo-1.png
+│  │  │  logo.png
+│  │  │  pie_chart.png
+│  │  │  word_cloud.png
+│  │  │  
+│  │  ├─avatar
+│  │  │  │  0.jpg
+│  │  │  │  1.jpg
+│  │  │  │  10.jpg
+│  │  │  │  11.jpg
+│  │  │  │  12.jpg
+│  │  │  │  2.jpg
+│  │  │  │  3.jpg
+│  │  │  │  4.jpg
+│  │  │  │  5.jpg
+│  │  │  │  6.jpg
+│  │  │  │  7.jpg
+│  │  │  │  8.jpg
+│  │  │  │  9.jpg
+│  │  │  │  a.jpg
+│  │  │  │  account.png
+│  │  │  │  default.png
+│  │  │  │  
+│  │  │  └─thumbnails
+│  │  │          0.jpg
+│  │  │          1.jpg
+│  │  │          7.jpg
+│  │  │          8.jpg
+│  │  │          9.jpg
+│  │  │          a.jpg
+│  │  │          account.png
+│  │  │          
+│  │  ├─comments_statistic
+│  │  └─other
+│  │          1437100018023.jpg
+│  │          study-a.png
+│  │          
+│  ├─jquery
+│  │      jquery.3.6.min.js
+│  │      
+│  ├─js
+│  │      bootstrap.min.js
+│  │      bootstrap.min.js.map
+│  │      count_video.js
+│  │      learn_AI.js
+│  │      register.js
+│  │      user_delete.js
+│  │      video.js
+│  │      
+│  ├─layui
+│  │  │  layui.all.js
+│  │  │  layui.js
+│  │  │  
+│  │  ├─css
+│  │  │  │  layui.css
+│  │  │  │  layui.mobile.css
+│  │  │  │  
+│  │  │  └─modules
+│  │  │      │  code.css
+│  │  │      │  
+│  │  │      ├─laydate
+│  │  │      │  └─default
+│  │  │      │          laydate.css
+│  │  │      │          
+│  │  │      └─layer
+│  │  │          └─default
+│  │  │                  icon-ext.png
+│  │  │                  icon.png
+│  │  │                  layer.css
+│  │  │                  loading-0.gif
+│  │  │                  loading-1.gif
+│  │  │                  loading-2.gif
+│  │  │                  
+│  │  ├─font
+│  │  │      iconfont.eot
+│  │  │      iconfont.svg
+│  │  │      iconfont.ttf
+│  │  │      iconfont.woff
+│  │  │      
+│  │  ├─images
+│  │  │  └─face
+│  │  │          0.gif
+│  │  │          1.gif
+│  │  │          10.gif
+│  │  │          11.gif
+│  │  │          12.gif
+│  │  │          13.gif
+│  │  │          14.gif
+│  │  │          15.gif
+│  │  │          16.gif
+│  │  │          17.gif
+│  │  │          18.gif
+│  │  │          19.gif
+│  │  │          2.gif
+│  │  │          20.gif
+│  │  │          21.gif
+│  │  │          22.gif
+│  │  │          23.gif
+│  │  │          24.gif
+│  │  │          25.gif
+│  │  │          26.gif
+│  │  │          27.gif
+│  │  │          28.gif
+│  │  │          29.gif
+│  │  │          3.gif
+│  │  │          30.gif
+│  │  │          31.gif
+│  │  │          32.gif
+│  │  │          33.gif
+│  │  │          34.gif
+│  │  │          35.gif
+│  │  │          36.gif
+│  │  │          37.gif
+│  │  │          38.gif
+│  │  │          39.gif
+│  │  │          4.gif
+│  │  │          40.gif
+│  │  │          41.gif
+│  │  │          42.gif
+│  │  │          43.gif
+│  │  │          44.gif
+│  │  │          45.gif
+│  │  │          46.gif
+│  │  │          47.gif
+│  │  │          48.gif
+│  │  │          49.gif
+│  │  │          5.gif
+│  │  │          50.gif
+│  │  │          51.gif
+│  │  │          52.gif
+│  │  │          53.gif
+│  │  │          54.gif
+│  │  │          55.gif
+│  │  │          56.gif
+│  │  │          57.gif
+│  │  │          58.gif
+│  │  │          59.gif
+│  │  │          6.gif
+│  │  │          60.gif
+│  │  │          61.gif
+│  │  │          62.gif
+│  │  │          63.gif
+│  │  │          64.gif
+│  │  │          65.gif
+│  │  │          66.gif
+│  │  │          67.gif
+│  │  │          68.gif
+│  │  │          69.gif
+│  │  │          7.gif
+│  │  │          70.gif
+│  │  │          71.gif
+│  │  │          8.gif
+│  │  │          9.gif
+│  │  │          
+│  │  └─lay
+│  │      └─modules
+│  │              carousel.js
+│  │              code.js
+│  │              element.js
+│  │              flow.js
+│  │              form.js
+│  │              jquery.js
+│  │              laydate.js
+│  │              layedit.js
+│  │              layer.js
+│  │              laypage.js
+│  │              laytpl.js
+│  │              mobile.js
+│  │              table.js
+│  │              tree.js
+│  │              upload.js
+│  │              util.js
+│  │              
+│  ├─movie
+│  │      AI的历史简短回顾.mp4
+│  │      ChatGPT，对我们普通人有哪些影响？.mp4
+│  │      一夜爆红的ChatGPT，对我们普通人有哪些影响？.mp4
+│  │      人工智能发展史.mp4
+│  │      计算机音乐科普.mp4
+│  │      
+│  └─video
+│          1.计算机音乐科普.mp4
+│          
+├─templates
+│  │  base.html
+│  │  competition.html
+│  │  detail.html
+│  │  index.html
+│  │  login.html
+│  │  public_question.html
+│  │  register.html
+│  │  start.html
+│  │  
+│  ├─admin
+│  │  │  admin_index.html
+│  │  │  admin_login.html
+│  │  │  admin_video.html
+│  │  │  
+│  │  ├─answer
+│  │  │      add_answer.html
+│  │  │      admin_answer.html
+│  │  │      
+│  │  ├─comments
+│  │  │      index.html
+│  │  │      statistics.html
+│  │  │      word_cloud.html
+│  │  │      
+│  │  ├─competition
+│  │  │      add_competition.html
+│  │  │      competition.html
+│  │  │      delete_competition.html
+│  │  │      edit_competition.html
+│  │  │      
+│  │  ├─question
+│  │  │      add_question.html
+│  │  │      admin_question.html
+│  │  │      delete_question.html
+│  │  │      edit_question.html
+│  │  │      
+│  │  ├─questionnaire
+│  │  │      add_option.html
+│  │  │      add_question.html
+│  │  │      add_questionnaire.html
+│  │  │      edit_question.html
+│  │  │      edit_questionnaire.html
+│  │  │      questionnaire.html
+│  │  │      questionnaire_stats.html
+│  │  │      
+│  │  ├─user
+│  │  │      admin_adduser.html
+│  │  │      admin_user.html
+│  │  │      delete_user.html
+│  │  │      edit_user.html
+│  │  │      search_user.html
+│  │  │      
+│  │  └─video
+│  │          admin_video.html
+│  │          admin_videos_add.html
+│  │          admin_videos_delete.html
+│  │          
+│  ├─bootstrap
+│  │      wtf.html
+│  │      
+│  └─user
+│      │  base.html
+│      │  
+│      ├─questionnaire
+│      │      add_option.html
+│      │      add_question.html
+│      │      add_questionnaire.html
+│      │      answer_questionnaire.html
+│      │      edit_question.html
+│      │      edit_questionnaire.html
+│      │      questionnaire.html
+│      │      
+│      ├─self
+│      │      answered_questionnaires.html
+│      │      answers.html
+│      │      comments.html
+│      │      edit.html
+│      │      index.html
+│      │      questionnaires.html
+│      │      questionnaire_answers.html
+│      │      questions.html
+│      │      
+│      └─video
+│              learn_AI.html
+│              video_detail.html
+│              
+└─__pycache__
+        app.cpython-36.pyc
+        app.cpython-37.pyc
+        app.cpython-39.pyc
+        config.cpython-36.pyc
+        config.cpython-37.pyc
+        config.cpython-39.pyc
+        decorators.cpython-36.pyc
+        decorators.cpython-37.pyc
+        decorators.cpython-39.pyc
+        exts.cpython-36.pyc
+        exts.cpython-37.pyc
+        exts.cpython-39.pyc
+        models.cpython-36.pyc
+        models.cpython-37.pyc
+        models.cpython-39.pyc
+        utils.cpython-37.pyc
+        xml_lib.cpython-36.pyc
+        xml_lib.cpython-37.pyc
+        

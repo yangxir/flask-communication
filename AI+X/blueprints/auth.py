@@ -10,12 +10,13 @@ from flask import request
 import random
 from models import EmailCaptchaModel, UserModel, QuestionModel, AnswerModel, Comment, QuestionnaireModel, \
     Questionnaire_QuestionModel, Questionnaire_AnswerModel, Questionnaire_OptionModel
-from utils import allowed_file, save_avatar_thumbnail
+from utils import allowed_file, save_avatar_thumbnail, get_avatar_path
 from .forms import RegisterForm, LoginForm, AvatarUploadForm, EditProfileForm
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # /auth
 bp = Blueprint('auth', __name__, url_prefix='/auth')
+avatar_dir = get_avatar_path()
 
 
 @bp.route('/login', methods=['GET', 'POST'])
@@ -171,11 +172,11 @@ def edit_self(user_id):
         avatar = request.files.get('avatar')
         if avatar:
             avatar_filename = secure_filename(avatar.filename)
-            avatar_path = os.path.join('E:/A-10-Temporary_test/last_test/flask-qa-main/AI+X/static/images/avatar',
+            avatar.save(os.path.join(avatar_dir, avatar_filename))  # 将任意位置图片保存到项目位置
+            avatar_path = os.path.join(avatar_dir,
                                        avatar_filename)
 
-            thumbnail_path = os.path.join('E:/A-10-Temporary_test/last_test/flask-qa-main/AI+X/static/images/avatar',
-                                          'thumbnails',
+            thumbnail_path = os.path.join(avatar_dir, 'thumbnails',
                                           avatar_filename)
             save_avatar_thumbnail(avatar_path, thumbnail_path)
             user.avatar = avatar_filename
@@ -188,4 +189,4 @@ def edit_self(user_id):
         db.session.commit()
         flash('Your changes have been saved.')
         return redirect(url_for('auth.user_self', user_id=user_id))
-    return render_template('user/self/edit.html', title='Edit Profile', user=user)
+    return render_template('user/self/edit.html', title='修改个人信息', user=user)

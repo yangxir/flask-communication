@@ -5,9 +5,9 @@ from werkzeug.utils import secure_filename
 from decorators import admin_login_required
 from models import VideoModel
 from exts import db
-
+from  utils import get_static_path
 bp = Blueprint('admin_videos', __name__, url_prefix='/admin_videos')
-
+static_dir = get_static_path()
 # 允许上传的视频文件类型
 ALLOWED_EXTENSIONS = {'mp4'}
 
@@ -40,7 +40,7 @@ def upload_video():
         file = request.files['video']
 
         # 检查文件名是否合法
-        print("file.filename=",file.filename)
+        print("file.filename=", file.filename)
         if file.filename == '':
             flash('文件名不能为空', 'error')
             return redirect(request.url)
@@ -50,7 +50,8 @@ def upload_video():
         # 保存文件
         filename = file.filename
         print(filename)
-        file.save(os.path.join('E:/A-10-Temporary_test/last_test/flask-qa-main/AI+X/static/movie', filename))
+
+        file.save(os.path.join(static_dir, filename))
         # 添加视频到数据库
         title = request.form.get('title')
         count = request.form.get('count', 0, type=int)
@@ -68,12 +69,10 @@ def delete_video(video_id):
     video = VideoModel.query.get_or_404(video_id)
     if request.method == 'POST':
         # 删除文件
-        os.remove(os.path.join('E:\A-10-Temporary_test\last_test\\flask-qa-main\AI+X\static\movie', video.file))
+        os.remove(os.path.join(static_dir, video.file))
         # 删除视频记录
         db.session.delete(video)
         db.session.commit()
         flash('删除成功', 'success')
         return redirect(url_for('admin_videos.index'))
     return render_template('admin/video/admin_videos_delete.html', video=video)
-
-
