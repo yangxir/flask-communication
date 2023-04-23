@@ -13,19 +13,19 @@
 
 ## 部署步骤
 1. 修改 `config.py` 中的信息，包括邮箱、数据库等
-2. （需要先在 `admin` 表中添加账户 `admin` 密码 `admin`）。
-3. (需要在`usermodel`表中添加 id`113` username `admin`密码随意，其他随意)
-4. 安装依赖（有依赖包没有加完全，需要自己查找）：
+
+2. 安装依赖（有依赖包没有加完全，需要自己查找）：
 ```
 $ pip install -r requirements.txt
 ```
-7. 数据库迁移。先删除 migrations 文件夹，然后进入项目文件运行以下三个指令：
+3. 数据库迁移。先删除 migrations 文件夹，然后进入项目文件运行以下三个指令：
  ```
   $flask db init
   $flask db migrate
   $flask db upgrade
   ```
-
+4. （需要先在 `admin` 表中添加账户 `admin` 密码 `admin`）。
+5. (需要在`usermodel`表中添加 id`113` username `admin`密码随意，其他随意)
 ## 目录结构描述
 ├ Readme.md                  // 帮助文档
 
