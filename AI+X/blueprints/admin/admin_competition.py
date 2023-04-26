@@ -20,9 +20,14 @@ bp = Blueprint('admin_competition', __name__, url_prefix='/admin_competition')
 @admin_login_required
 def index():
     page = request.args.get('page', 1, type=int)
-    per_page = 10  # Set the number of questions per page
-    competitions = CompetitionModel.query.paginate(page=page, per_page=per_page)
-    return render_template('admin/competition/competition.html', competitions=competitions)
+    per_page = 5  # Set the number of questions per page
+    offset = (page - 1) * per_page
+    competitions = CompetitionModel.query.limit(per_page).offset(offset).all()
+    total_competitions = CompetitionModel.query.count()
+    pages = total_competitions // per_page + (total_competitions % per_page > 0)
+    return render_template('admin/competition/competition.html', competitions=competitions
+                           , total_competitions=total_competitions, per_page=per_page,
+                           pages=pages, page=page)
 
 
 @bp.route('/add_competition', methods=['GET', 'POST'])

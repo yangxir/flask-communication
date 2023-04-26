@@ -30,8 +30,14 @@ matplotlib.rcParams['font.family'] = 'AaMakeTi-2'
 def index():
     page = request.args.get('page', 1, type=int)
     per_page = 5  # Set the number of questions per page
-    comments = Comment.query.paginate(page=page, per_page=per_page)
-    return render_template('admin/comments/index.html', comments=comments)
+    offset = (page - 1) * per_page
+    comments = Comment.query.limit(per_page).offset(offset).all()
+    total_comments = Comment.query.count()
+    pages = total_comments // per_page + (total_comments % per_page > 0)
+    return render_template('admin/comments/index.html', comments=comments,
+                           total_comments=total_comments, per_page=per_page,
+                           pages=pages, page=page
+                           )
 
 @bp.route('/delete_comment/<int:comment_id>', methods=['POST'])
 @admin_login_required

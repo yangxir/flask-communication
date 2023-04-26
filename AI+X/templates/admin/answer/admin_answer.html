@@ -38,31 +38,31 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <nav>
-            <ul class="pagination">
-                {% if answers.has_prev %}
-                    <li class="page-item"><a class="page-link" href="{{ url_for('admin_answers.index', page=answers.prev_num) }}">上一页</a></li>
-                {% else %}
-                    <li class="page-item disabled"><a class="page-link" href="#">上一页</a></li>
-                {% endif %}
-                {% for page_num in answers.iter_pages() %}
-                    {% if page_num %}
-                        {% if page_num != answers.page %}
-                            <li class="page-item"><a class="page-link" href="{{ url_for('admin_answers.index', page=page_num) }}">{{ page_num }}</a></li>
-                        {% else %}
-                            <li class="page-item active"><a class="page-link" href="#">{{ page_num }}</a></li>
-                        {% endif %}
-                    {% else %}
-                        <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                    {% endif %}
-                {% endfor %}
-                {% if answers.has_next %}
-                    <li class="page-item"><a class="page-link" href="{{ url_for('admin_answers.index', page=answers.next_num) }}">下一页</a></li>
-                {% else %}
-                    <li class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
-                {% endif %}
-            </ul>
-        </nav>
+{#            <nav>#}
+{#            <ul class="pagination">#}
+{#                {% if answers.has_prev %}#}
+{#                    <li class="page-item"><a class="page-link" href="{{ url_for('admin_answers.index', page=answers.prev_num) }}">上一页</a></li>#}
+{#                {% else %}#}
+{#                    <li class="page-item disabled"><a class="page-link" href="#">上一页</a></li>#}
+{#                {% endif %}#}
+{#                {% for page_num in answers.iter_pages() %}#}
+{#                    {% if page_num %}#}
+{#                        {% if page_num != answers.page %}#}
+{#                            <li class="page-item"><a class="page-link" href="{{ url_for('admin_answers.index', page=page_num) }}">{{ page_num }}</a></li>#}
+{#                        {% else %}#}
+{#                            <li class="page-item active"><a class="page-link" href="#">{{ page_num }}</a></li>#}
+{#                        {% endif %}#}
+{#                    {% else %}#}
+{#                        <li class="page-item disabled"><a class="page-link" href="#">...</a></li>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+{#                {% if answers.has_next %}#}
+{#                    <li class="page-item"><a class="page-link" href="{{ url_for('admin_answers.index', page=answers.next_num) }}">下一页</a></li>#}
+{#                {% else %}#}
+{#                    <li class="page-item disabled"><a class="page-link" href="#">下一页</a></li>#}
+{#                {% endif %}#}
+{#            </ul>#}
+{#        </nav>#}
 
         {% endif %}
     </div>

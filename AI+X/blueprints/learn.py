@@ -14,10 +14,14 @@ bp = Blueprint('learn', __name__, url_prefix='/learn')
 @bp.route('/')
 def index():
     page = request.args.get('page', 1, type=int)
-    per_page = 10  # Set the number of questions per page
-    videos = VideoModel.query.paginate(page=page, per_page=per_page)
+    per_page = 5  # Set the number of questions per page
+    offset = (page - 1) * per_page
+    videos = VideoModel.query.limit(per_page).offset(offset).all()
+    total_videos = VideoModel.query.count()
+    pages = total_videos // per_page + (total_videos % per_page > 0)
     print(videos)
-    return render_template('user/video/learn_AI.html', videos=videos)
+    return render_template('user/video/learn_AI.html', videos=videos ,total_videos=total_videos, per_page=per_page,
+                           pages=pages, page=page)
 
 
 @bp.route('/video_detail/<int:video_id>', methods=['GET', 'POST'])
@@ -30,9 +34,16 @@ def video_detail(video_id):
     db.session.add(video)
     db.session.commit()
     page = request.args.get('page', 1, type=int)
-    per_page = 10  # Set the number of comments per page
-    comments_1 = Comment.query.filter_by(video_id=video_id).paginate(page=page, per_page=per_page)
-    return render_template('user/video/video_detail.html', video=video, comments=comments_1)
+    per_page = 5  # Set the number of questions per page
+    offset = (page - 1) * per_page
+    comments_1 = Comment.query.filter_by(video_id=video_id).limit(per_page).offset(offset).all()
+    total_comments = Comment.query.count()
+    pages = total_comments // per_page + (total_comments % per_page > 0)
+
+    return render_template('user/video/video_detail.html', video=video, comments=comments_1 ,
+                           total_comments=total_comments, per_page=per_page,
+                           pages=pages, page=page
+                           )
 
 
 @bp.route('/<int:video_id>/comments', methods=['GET', 'POST'])

@@ -17,10 +17,15 @@ bp = Blueprint('questionnaire', __name__, url_prefix='/questionnaire')
 def index():
     # 实例化Questionnaire类对象
     page = request.args.get('page', 1, type=int)
-    per_page = 10  # Set the number of questions per page
-    questionnaires = QuestionnaireModel.query.paginate(page=page, per_page=per_page)
+    per_page = 5  # Set the number of questions per page
+    offset = (page - 1) * per_page
+    questionnaires = QuestionnaireModel.query.limit(per_page).offset(offset).all()
+    total_questionnaires = QuestionnaireModel.query.count()
+    pages = total_questionnaires // per_page + (total_questionnaires % per_page > 0)
     user_id = session.get('user_id')
-    return render_template('user/questionnaire/questionnaire.html', questionnaires=questionnaires, user_id = user_id)
+    return render_template('user/questionnaire/questionnaire.html', questionnaires=questionnaires, user_id = user_id ,
+                           total_questionnaires=total_questionnaires, per_page=per_page,
+                           pages=pages, page=page)
 
 
 @bp.route('/answer/<int:questionnaire_id>', methods=['GET', 'POST'])

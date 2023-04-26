@@ -36,30 +36,30 @@
                 {% endfor %}
             </tbody>
         </table>
-    <nav>
+  <nav>
+        {% if total_comments > per_page %}
             <ul class="pagination">
-                {% if comments.has_prev %}
-                    <li class="page-item"><a class="page-link" href="{{ url_for('admin_comments.index', page=comments.prev_num) }}">上一页</a></li>
+                 {% if page > 1 %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('admin_comments.index', page=page-1) }}">Previous</a></li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">Previous</span></li>
+            {% endif %}
+
+            {% for i in range(1, pages + 1) %}
+                {% if i == page %}
+                    <li class="page-item active"><span class="page-link">{{ i }}</span></li>
                 {% else %}
-                    <li class="page-item disabled"><a class="page-link" href="#">上一页</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ url_for('admin_comments.index', page=i) }}">{{ i }}</a></li>
                 {% endif %}
-                {% for page_num in comments.iter_pages() %}
-                    {% if page_num %}
-                        {% if page_num != comments.page %}
-                            <li class="page-item"><a class="page-link" href="{{ url_for('admin_comments.index', page=page_num) }}">{{ page_num }}</a></li>
-                        {% else %}
-                            <li class="page-item active"><a class="page-link" href="#">{{ page_num }}</a></li>
-                        {% endif %}
-                    {% else %}
-                        <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                    {% endif %}
-                {% endfor %}
-                {% if comments.has_next %}
-                    <li class="page-item"><a class="page-link" href="{{ url_for('admin_comments.index', page=comments.next_num) }}">下一页</a></li>
-                {% else %}
-                    <li class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
-                {% endif %}
+            {% endfor %}
+
+            {% if page < pages %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('admin_comments.index', page=page  + 1) }}">Next</a></li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">Next</span></li>
+            {% endif %}
             </ul>
+        {% endif %}
         </nav>
     </div>
 {% endblock %}

@@ -15,9 +15,15 @@ bp = Blueprint('admin_question', __name__, url_prefix='/admin_question')
 @admin_login_required
 def index():
     page = request.args.get('page', 1, type=int)
-    per_page = 10  # Set the number of questions per page
-    questions = QuestionModel.query.paginate(page=page, per_page=per_page)
-    return render_template('admin/question/admin_question.html', questions=questions)
+    per_page = 5  # Set the number of questions per page
+    offset = (page - 1) * per_page
+    questions = QuestionModel.query.limit(per_page).offset(offset).all()
+    total_questions= QuestionModel.query.count()
+    pages = total_questions // per_page + (total_questions % per_page > 0)
+    return render_template('admin/question/admin_question.html', questions=questions,
+                           total_questions=total_questions, per_page=per_page,
+                           pages=pages, page=page
+                           )
 
 
 
