@@ -21,7 +21,7 @@ from blueprints.admin.admin_videos import bp as admin_video_bp
 from blueprints.admin.admin_answers import bp as admin_answer_bp_1
 from blueprints.admin.admin_comments import bp as admin_comments_bp
 from flask_migrate import Migrate
-from flask_bootstrap import Bootstrap4, Bootstrap
+from flask_bootstrap import Bootstrap4, Bootstrap5
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
@@ -31,7 +31,7 @@ app.config.from_object(config)
 db.init_app(app)
 mail.init_app(app)
 # admin.init_app(app)
-bootstrap = Bootstrap(app)
+bootstrap = Bootstrap5(app)
 app.jinja_env.filters['b64encode'] = base64.b64encode
 migrate = Migrate(app, db)
 

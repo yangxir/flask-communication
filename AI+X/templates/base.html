@@ -4,11 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/bootstrap.4.6.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.4.6.min.css') }}">
     <script src="{{ url_for('static', filename='jquery/jquery.3.6.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/init.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+
     {% block head %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 <style>
@@ -34,7 +36,7 @@ footer a:hover {
 <body>
     <nav class="navbar navbar-light bg-light navbar-expand">
   <div class="container">
-    <a class="navbar-brand" href="{{url_for('auth.start')}}">"人工智能+x"交叉学科交流平台</a>
+    <a class="navbar-brand" href="{{url_for('auth.start')}}">"AI+X"交流平台</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -135,7 +137,7 @@ footer a:hover {
   <div class="container py-5" style="font-size: 0.8em; height: 20px;">
     <div class="row">
       <div class="col-md-12 text-center">
-        <p>© 2023 All Rights Reserved. Designed and developed by 杨熙瑞.</p>
+        <p>© 2023 All Rights Reserved. Designed and developed by YangXiR.</p>
       </div>
     </div>
   </div>
