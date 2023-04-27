@@ -75,6 +75,12 @@ $ pip install -r requirements.txt
 3. 新增功能：视频开放评论区。
 4. 分页查询功能。
 
+## 版本更新
+# v1.0.1
+1. 修复分页查询代码bug，一些python版本中无法使用.pagination
+2. 修复搜搜问题页面没有使用分页查询功能。
+3. 新增功能：增加网页图标AI,favicon.ico。
+4. 修改网址导航栏标题 
 
 ## 截图
 ![主页.png](https://s2.loli.net/2023/04/17/Su9IvAVnzJeUabr.png)
