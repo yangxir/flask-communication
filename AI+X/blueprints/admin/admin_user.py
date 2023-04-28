@@ -4,7 +4,8 @@ from werkzeug.security import generate_password_hash
 
 from decorators import admin_login_required
 from exts import db
-from models import UserModel
+from models import UserModel, AnswerModel, QuestionModel, QuestionnaireModel, Questionnaire_AnswerModel, \
+    Questionnaire_OptionModel, Questionnaire_QuestionModel
 from blueprints.forms import Admin_AddUser, Search_User, EditUserForm
 
 # /admin
@@ -68,6 +69,18 @@ def delete_user(user_id):
     user = UserModel.query.filter_by(id=user_id).first_or_404()
     form = DeleteUserForm()
     if request.method == 'POST':
+        AnswerModel.query.filter_by(author_id=user.id).delete()
+        QuestionModel.query.filter_by(author_id=user.id).delete()
+        Questionnaire_AnswerModel.query.filter_by(user_id=user.id).delete()
+
+        # 删除与该用户相关联的所有问卷及其问题和选项
+        questionnaires = QuestionnaireModel.query.filter_by(user_id=user.id).all()
+        for questionnaire in questionnaires:
+            # 删除与该问卷相关联的所有问题及其选项
+            Questionnaire_QuestionModel.query.filter_by(questionnaire_id=questionnaire.id).delete()
+            db.session.delete(questionnaire)
+        db.session.commit()
+
         db.session.delete(user)
         db.session.commit()
         flash('The user has been deleted successfully.', 'success')

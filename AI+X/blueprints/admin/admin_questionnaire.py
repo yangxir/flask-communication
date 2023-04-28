@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash, request, current_app
 
 from blueprints.forms import QuestionnaireForm, Questionnaire_QuestionForm
 from decorators import admin_login_required
@@ -99,17 +99,36 @@ def edit_question(question_id):
 @bp.route('/delete_questionnaire/<int:questionnaire_id>', methods=['GET', 'POST'])
 @admin_login_required
 def delete_questionnaire(questionnaire_id):
-    questionnaire = QuestionnaireModel.query.get(questionnaire_id)
-    if not questionnaire:
-        flash('调查问卷不存在', 'error')
-        return redirect(url_for('admin_questionnaire.index'))
+    questionnaires = QuestionnaireModel.query.get(questionnaire_id)
+    if questionnaires is None:
+        flash('问卷不存在', 'error')
+    else:
+        try:
+            # 删除该问卷下的所有答案
+            for questionnaire in questionnaires:
+                for quesiton in questionnaire.questions:
+                    answer = Questionnaire_AnswerModel.query.filter_by(question_id=quesiton.id)
+                    for answer in answer:
+                        db.session.delete(answer)
+                        print('删除成功')
+                # 删除该问卷下的所有问题和选项
+                for question in questionnaire.questions:
+                    op = Questionnaire_OptionModel.query.filter_by(question_id=question.id)
+                    for option in op:
+                        db.session.delete(option)
+                    db.session.delete(question)
+                db.session.expunge(questionnaire)  # 从会话中分离出问卷对象
 
-    db.session.delete(questionnaire)
-    db.session.commit()
-    flash('调查问卷删除成功', 'success')
+                # 删除该问卷
+                db.session.delete(questionnaire)
+                db.session.commit()
+                flash('问卷删除成功', 'success')
+        except Exception as e:
+            db.session.rollback()
+            flash('删除问卷失败', 'error')
+            current_app.logger.error('删除问卷失败：%s' % str(e))
 
     return redirect(url_for('admin_questionnaire.index'))
-
 
 @bp.route('/add_option/<int:question_id>', methods=['GET', 'POST'])
 @admin_login_required

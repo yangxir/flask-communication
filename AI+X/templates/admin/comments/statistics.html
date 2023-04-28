@@ -6,8 +6,28 @@
     <div class="col-md-6">
       <p>总评论字数：{{ total_count }}</p>
       <p>总回复字数：{{ reply_count }}</p>
+      <hr>
       <p>各词出现次数：</p>
-      {{ html | safe }}
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>词语</th>
+              <th>出现次数</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for word, count in words %}
+              <tr>
+                <td>{{ word }}</td>
+                <td>{{ count }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>{{ html | safe }}
+      </div>
     </div>
+
+
   </div>
 {% endblock %}

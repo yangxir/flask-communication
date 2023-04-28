@@ -64,7 +64,7 @@ def statistics():
     font = FontProperties(fname='E:/A-10-Temporary_test/last_test/flask-qa-main/AI+X/static/AaMaKeTi-2.ttf', size=14)
 
     # 获取评论统计数据
-    total_count, comment_count, reply_count, top_words = get_comments_statistics()
+    total_count, comment_count,  top_words = get_comments_statistics()
 
     # 将数据处理为饼图所需的格式
     labels = list(top_words.keys())
@@ -84,6 +84,10 @@ def statistics():
 
     # 将编码后的图像嵌入到HTML中的<img>标签中
     html = '<img src="data:image/png;base64,{}" width="100%">'.format(image)
+    top_words = get_comments_statistics()[2]
+    words = sorted(top_words.items(), key=lambda x: x[1], reverse=True)[:10]
+
+    plt.close() # 关闭图形
 
     return render_template('admin/comments/statistics.html', html=html, total_count=total_count,
-                           reply_count=reply_count)
+                           words=words)

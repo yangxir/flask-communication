@@ -15,6 +15,8 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 font = FontProperties(fname=os.path.join(current_dir, 'static/AaMaKeTi-2.ttf'))
 
 
+from matplotlib.font_manager import FontProperties
+
 def generate_word_cloud():
     comments = Comment.query.all()
 
@@ -27,7 +29,8 @@ def generate_word_cloud():
     counter = Counter(words)
 
     # 使用WordCloud生成词云
-    wc = WordCloud(font_path='msyh.ttc', width=800, height=600, background_color='white')
+
+    wc = WordCloud(font_path='msyh.ttc', width=800, height=600, font_step=2, background_color='white')
     wc.generate_from_frequencies(counter)
 
     # 保存词云图片到静态文件夹
@@ -38,6 +41,7 @@ def generate_word_cloud():
     return image_path
 
 
+
 def get_comments_statistics():
     comments = Comment.query.all()
 
@@ -46,16 +50,19 @@ def get_comments_statistics():
     for comment in comments:
         words.extend(jieba.cut(comment.content))
 
+    # 筛选长度为2到4的单词
+    words = list(filter(lambda x: 2 <= len(x) <= 4, words))
+
     # 统计每个单词的出现次数
     counter = Counter(words)
 
     # 计算每个单词出现的百分比
     total_count = sum(counter.values())
     comment_count = len(comments)
-    reply_count = sum(comment.replies.count() for comment in comments)
     top_words = dict(counter.most_common(10))
 
-    return total_count, comment_count, reply_count, top_words
+    return total_count, comment_count, top_words
+
 
 
 def allowed_file(filename):

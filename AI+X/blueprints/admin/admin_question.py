@@ -56,6 +56,10 @@ def delete_question(question_id):
     question = QuestionModel.query.get_or_404(question_id)
     form = DeleteQuestionForm()
     if request.method == 'POST':
+        answers = AnswerModel.query.filter_by(question_id=question.id)
+
+        for answer in answers:
+            db.session.delete(answer)
         db.session.delete(question)
         db.session.commit()
         return redirect(url_for('admin_question.index'))

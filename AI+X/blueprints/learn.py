@@ -6,7 +6,7 @@ from sqlalchemy.sql.functions import current_user
 from decorators import login_required
 from exts import db
 from datetime import datetime
-from models import VideoModel, Comment, ReplyComment
+from models import VideoModel, Comment
 
 bp = Blueprint('learn', __name__, url_prefix='/learn')
 
@@ -57,10 +57,17 @@ def comments(video_id):
         comment = Comment(user_id=user_id, content=content, video_id=video_id, create_time=datetime.now())
         db.session.add(comment)
         db.session.commit()
-
+    page = request.args.get('page', 1, type=int)
+    per_page = 5  # Set the number of questions per page
+    offset = (page - 1) * per_page
+    comments_1 = Comment.query.filter_by(video_id=video_id).limit(per_page).offset(offset).all()
+    total_comments = Comment.query.count()
+    pages = total_comments // per_page + (total_comments % per_page > 0)
     video = VideoModel.query.get(video_id)
-    comments_1 = Comment.query.filter_by(video_id=video_id).all()
-    return render_template('user/video/video_detail.html', video=video, comments=comments_1)
+
+    return render_template('user/video/video_detail.html', video=video, comments=comments_1,
+                           total_comments=total_comments, per_page=per_page,
+                           pages=pages, page=page)
 
 @bp.route('/comments/<int:comment_id>/delete', methods=['POST'])
 @login_required

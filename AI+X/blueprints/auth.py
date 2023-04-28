@@ -130,35 +130,6 @@ def user_questionnaires(user_id):
     return render_template('user/self/questionnaires.html', user=user, questionnaires=questionnaires)
 
 
-# # 已经作答问卷列表#
-# @bp.route('/user_self/<int:user_id>/answered_questionnaires', methods=['GET'])
-# @login_required
-# def user_answered_questionnaires(user_id):
-#     user = UserModel.query.filter_by(id=user_id).first_or_404()
-#     questionnaires = db.session.query(QuestionnaireModel) \
-#         .filter(QuestionnaireModel.user_id == user_id) \
-#         .order_by(QuestionnaireModel.created_at.desc()) \
-#         .all()
-#
-#     return render_template('user/self/answered_questionnaires.html', user=user, questionnaires=questionnaires)
-#
-#
-# # 已经作答的问卷详情#
-# @bp.route('/user_self/<int:user_id>/questionnaires/<int:questionnaire_id>/answers', methods=['GET'])
-# @login_required
-# def user_questionnaire_answers(user_id, questionnaire_id):
-#     user = UserModel.query.filter_by(id=user_id).first_or_404()
-#     questionnaire = QuestionnaireModel.query.filter_by(id=questionnaire_id, user_id=user_id).first_or_404()
-#     answers = db.session.query(Questionnaire_AnswerModel, Questionnaire_QuestionModel, Questionnaire_OptionModel) \
-#         .join(Questionnaire_QuestionModel, Questionnaire_AnswerModel.question_id == Questionnaire_QuestionModel.id) \
-#         .outerjoin(Questionnaire_OptionModel, Questionnaire_AnswerModel.option_id == Questionnaire_OptionModel.id) \
-#         .filter(Questionnaire_AnswerModel.user_id == user_id,
-#                 Questionnaire_QuestionModel.questionnaire_id == questionnaire_id) \
-#         .order_by(Questionnaire_AnswerModel.created_at.desc()) \
-#         .all()
-#
-#     return render_template('user/self/questionnaire_answers.html', user=user, questionnaire=questionnaire,
-#                            answers=answers)
 
 
 @bp.route('/edit_self/<int:user_id>', methods=['GET', 'POST'])

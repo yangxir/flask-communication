@@ -73,22 +73,6 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user_model.id'))
     user = db.relationship('UserModel')
     video_id = db.Column(db.Integer, db.ForeignKey('video.id'))
-    replies = db.relationship('ReplyComment', backref='comment', lazy='dynamic')
-
-    def __repr__(self):
-        return self.content
-
-
-class ReplyComment(db.Model):
-    __tablename__ = 'reply_comment'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    content = db.Column(db.Text, nullable=False)
-    create_time = db.Column(db.DateTime, default=datetime.now)
-    user_id = db.Column(db.Integer, db.ForeignKey('user_model.id'))
-    user = db.relationship('UserModel')
-    comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
-    reply_to_id = db.Column(db.Integer, db.ForeignKey('reply_comment.id'))
-    replies = db.relationship('ReplyComment', backref=db.backref('parent_reply', remote_side=[id]), lazy='dynamic')
 
     def __repr__(self):
         return self.content
@@ -97,11 +81,11 @@ class ReplyComment(db.Model):
 class VideoModel(db.Model):
     __tablename__ = 'video'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    file = db.Column(db.String(255))
-    title = db.Column(db.String(255))
+    file = db.Column(db.String(255), unique=True)
+    title = db.Column(db.String(255), unique=True)
     count = db.Column(db.Integer, nullable=False)
     create_time = db.Column(db.DateTime, default=datetime.now)
-    comments = db.relationship('Comment', backref='video', lazy=True)
+    comments = db.relationship('Comment', backref='video', lazy=True, cascade='delete')
 
 
 class CompetitionModel(db.Model):
@@ -124,7 +108,15 @@ class QuestionnaireModel(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user_model.id'))
     user = db.relationship('UserModel')
     updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now(), nullable=False)
-    questions = db.relationship('Questionnaire_QuestionModel', backref='questionnaire', lazy=True, cascade='delete')
+    questions = db.relationship('Questionnaire_QuestionModel', backref='questionnaire', lazy=True, cascade='all, delete')
+
+    def delete(self):
+        # 删除问卷下的所有问题
+        for question in self.questions:
+            question.delete()
+
+        db.session.delete(self)
+        db.session.commit()
 
 
 class Questionnaire_QuestionModel(db.Model):
@@ -137,7 +129,15 @@ class Questionnaire_QuestionModel(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now(), nullable=False)
     questionnaire_id = db.Column(db.Integer, db.ForeignKey('questionnaire.id'), nullable=False)
     options = db.relationship('Questionnaire_OptionModel', backref='questionnaire_question', lazy=True,
-                              cascade='delete')
+                              cascade='all, delete')
+
+    def delete(self):
+        # 删除问题下的所有选项
+        for option in self.options:
+            option.delete()
+
+        db.session.delete(self)
+        db.session.commit()
 
 
 class Questionnaire_OptionModel(db.Model):
@@ -147,7 +147,15 @@ class Questionnaire_OptionModel(db.Model):
     content = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now(), nullable=False)
-    question_id = db.Column(db.Integer, db.ForeignKey('questionnaire_question.id'), nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('questionnaire_question.id', ondelete='CASCADE'), nullable=False)
+
+    def delete(self):
+        # 删除选项下的所有答案
+        for answer in self.answers:
+            answer.delete()
+
+        db.session.delete(self)
+        db.session.commit()
 
 
 class Questionnaire_AnswerModel(db.Model):
@@ -156,7 +164,11 @@ class Questionnaire_AnswerModel(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now(), nullable=False)
-    question_id = db.Column(db.Integer, db.ForeignKey('questionnaire_question.id'), nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('questionnaire_question.id', ondelete='CASCADE'), nullable=False)
     option_id = db.Column(db.Integer, db.ForeignKey('questionnaire_option.id', ondelete='SET NULL'))
     content = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey('user_model.id'), nullable=False)
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()

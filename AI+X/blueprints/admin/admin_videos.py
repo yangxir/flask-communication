@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from werkzeug.utils import secure_filename
 
 from decorators import admin_login_required
-from models import VideoModel
+from models import VideoModel, Comment
 from exts import db
 from  utils import get_static_path
 bp = Blueprint('admin_videos', __name__, url_prefix='/admin_videos')
@@ -78,6 +78,7 @@ def delete_video(video_id):
         # 删除文件
         os.remove(os.path.join(static_dir, video.file))
         # 删除视频记录
+        comments = Comment.query.filter_by(video_id=video_id).delete()
         db.session.delete(video)
         db.session.commit()
         flash('删除成功', 'success')
