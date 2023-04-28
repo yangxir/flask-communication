@@ -66,16 +66,19 @@ def public_answer():
 
 @bp.route('/search')
 def search():
-    # 查询字符串形式
-    # /search?q=flask
-    # /search/<q>
-    # post, request.form
-    page = request.args.get('page', 1, type=int)
-    per_page = 5  # Set the number of questions per page
-    offset = (page - 1) * per_page
     q = request.args.get('q')
-    questions = QuestionModel.query.filter(QuestionModel.title.contains(q)).limit(per_page).offset(offset).all()
-    total_questions = QuestionModel.query.count()
+    page = request.args.get('page', 1, type=int)
+    per_page = 5
+    offset = (page - 1) * per_page
+
+    if q:
+        questions = QuestionModel.query.filter(QuestionModel.title.contains(q)).limit(per_page).offset(offset).all()
+        total_questions = QuestionModel.query.filter(QuestionModel.title.contains(q)).count()
+    else:
+        questions = QuestionModel.query.limit(per_page).offset(offset).all()
+        total_questions = QuestionModel.query.count()
+
     pages = total_questions // per_page + (total_questions % per_page > 0)
-    return render_template('index.html', questions=questions, total_questions=total_questions, per_page=per_page
-                           , pages=pages, page=page)
+
+    return render_template('index.html', questions=questions, total_questions=total_questions, per_page=per_page, pages=pages, page=page)
+

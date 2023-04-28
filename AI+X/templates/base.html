@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.4.6.min.css') }}">
     <script src="{{ url_for('static', filename='jquery/jquery.3.6.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/init.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
@@ -14,7 +15,6 @@
     {% block head %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 <style>
-
 
 footer p {
   margin: 0;
@@ -30,11 +30,16 @@ footer a:hover {
 }
 
 
+
 </style>
 </head>
 
 <body>
+
+
     <nav class="navbar navbar-light bg-light navbar-expand">
+
+
   <div class="container">
     <a class="navbar-brand" href="{{url_for('auth.start')}}">"AI+X"交流平台</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +66,7 @@ footer a:hover {
   <li class="nav-item ml-2">
     <form class="form-inline my-2 my-lg-0" method="GET" action="{{url_for('AI+X.search')}}">
       <div class="input-group">
-        <input class="form-control" type="search" placeholder="搜索" aria-label="Search" name="q">
+        <input class="form-control" type="search" placeholder="搜索问题" aria-label="Search" name="q">
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="submit">搜索</button>
         </div>
@@ -130,6 +135,11 @@ footer a:hover {
 
     <div class="container">
         {% block body %}
+
+{% block content %}
+
+    {% endblock %}
+
         {% endblock %}
     </div>
 </body>

@@ -26,13 +26,19 @@
         font-size: 14px;
         color: #999;
     }
+    .pagination-center {
+    display: flex;
+    justify-content: center;
+}
+
     </style>
 {% endblock %}
 
-{% block body %}
+{% block content %}
     <div class="row" style="margin-top: 20px;">
             <div class="col"></div>
             <div class="col-10">
+            {% if questions %}
                 <ul class="question-ul">
                     {% for question in questions %}
     <li>
@@ -64,13 +70,17 @@
 {% endfor %}
 
                 </ul>
-<nav>
+            {% else %}
+    <div class="alert alert-warning">没有相关内容</div>
+    <a href="{{ url_for('AI+X.index') }}" class="btn btn-primary">返回</a>
+{% endif %}
+<nav class="pagination-center">
     {% if total_questions > per_page %}
         <ul class="pagination">
             {% if page > 1 %}
                 <li class="page-item"><a class="page-link" href="{{ url_for('AI+X.index', page=page-1) }}">Previous</a></li>
             {% else %}
-                <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                <li class="page-item disabled"><span class="page-link">上一页</span></li>
             {% endif %}
 
             {% for i in range(1, pages + 1) %}
@@ -84,7 +94,7 @@
             {% if page < pages %}
                 <li class="page-item"><a class="page-link" href="{{ url_for('AI+X.index', page=page  + 1) }}">Next</a></li>
             {% else %}
-                <li class="page-item disabled"><span class="page-link">Next</span></li>
+                <li class="page-item disabled"><span class="page-link">下一页</span></li>
             {% endif %}
         </ul>
     {% endif %}

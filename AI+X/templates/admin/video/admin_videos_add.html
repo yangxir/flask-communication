@@ -4,10 +4,12 @@
 
 {% block body %}
     <div class="container">
+    <iframe id="upload_target" name="upload_target" style="display:none;"></iframe>
+
         <h1>上传视频</h1>
         <hr>
-        <form action="{{ url_for('admin_videos.upload_video') }}" method="post" enctype="multipart/form-data">
-            <div class="form-group">
+       <form action="{{ url_for('admin_videos.upload_video') }}" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="showProgressBar();">
+ <div class="form-group">
                 <label for="title">视频名称</label>
                 <input type="text" name="title" id="title" class="form-control">
             </div>
@@ -15,7 +17,12 @@
                 <label for="video">选择视频文件</label>
                 <input type="file" name="video" id="video">
             </div>
+           <div id="progress_bar" class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
             <button type="submit" class="btn btn-primary">上传</button>
         </form>
     </div>
 {% endblock %}
+
